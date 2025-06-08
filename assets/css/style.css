@@ -449,9 +449,7 @@ input:focus + .toggle-slider {
         /* Buttons */
         radial-gradient(ellipse 400px 100px at 450px 580px, transparent 0%, transparent 40%, rgba(0,0,0,0.9) 70%),
         /* Toggle switches */
-        radial-gradient(ellipse 200px 150px at calc(100% - 150px) 400px, transparent 0%, transparent 40%, rgba(0,0,0,0.9) 70%),
-        /* Base dark layer */
-        rgba(0, 0, 0, 0.92);
+        radial-gradient(ellipse 200px 150px at calc(100% - 150px) 400px, transparent 0%, transparent 40%, rgba(0,0,0,0.9) 70%);
     z-index: 1000;
     pointer-events: none;
     opacity: 0;
@@ -464,10 +462,7 @@ body.opacity-mode .opacity-overlay {
     visibility: visible;
 }
 
-/* Dark background for opacity mode */
-body.opacity-mode {
-    background-color: #000;
-}
+
 
 /* Hide background patterns */
 body.opacity-mode .header::before,
@@ -492,9 +487,7 @@ body.opacity-mode .main::before {
             /* Buttons */
             radial-gradient(ellipse 350px 80px at 400px 500px, transparent 0%, transparent 40%, rgba(0,0,0,0.9) 70%),
             /* Toggle switches */
-            radial-gradient(ellipse 150px 120px at calc(100% - 120px) 350px, transparent 0%, transparent 40%, rgba(0,0,0,0.9) 70%),
-            /* Base dark layer */
-            rgba(0, 0, 0, 0.92);
+            radial-gradient(ellipse 150px 120px at calc(100% - 120px) 350px, transparent 0%, transparent 40%, rgba(0,0,0,0.9) 70%);
     }
 }
 
@@ -510,9 +503,7 @@ body.opacity-mode .main::before {
             /* Buttons */
             radial-gradient(ellipse 250px 100px at 50% 450px, transparent 0%, transparent 40%, rgba(0,0,0,0.9) 70%),
             /* Toggle switches */
-            radial-gradient(ellipse 120px 100px at 50% 550px, transparent 0%, transparent 40%, rgba(0,0,0,0.9) 70%),
-            /* Base dark layer */
-            rgba(0, 0, 0, 0.92);
+            radial-gradient(ellipse 120px 100px at 50% 550px, transparent 0%, transparent 40%, rgba(0,0,0,0.9) 70%);
     }
 }
 
