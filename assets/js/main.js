@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initStepsAnimation();
 
     initHeatmapToggle();
-    initOpacityToggle();
     initCarousel();
     initLightbox();
 });
@@ -524,44 +523,6 @@ function initHeatmapToggle() {
         
     } else {
         console.log('❌ Heatmap elements missing - check HTML');
-    }
-}
-
-// Opacity map toggle functionality
-function initOpacityToggle() {
-    const toggle = document.getElementById('opacity-toggle');
-    
-    console.log('🔍 Opacity init - Toggle found:', !!toggle);
-    
-    if (toggle) {
-        toggle.addEventListener('change', function() {
-            console.log('🎯 Opacity toggle:', this.checked ? 'ON' : 'OFF');
-            
-            if (this.checked) {
-                document.body.classList.add('opacity-mode');
-                // Debug: Check if everything is working
-                console.log('Body classes:', document.body.className);
-                
-                const overlay = document.getElementById('opacity-overlay');
-                console.log('Overlay element found:', !!overlay);
-                
-                if (overlay) {
-                    console.log('Overlay styles:', window.getComputedStyle(overlay).opacity, window.getComputedStyle(overlay).visibility);
-                }
-                
-                const heroTitle = document.querySelector('.hero-title');
-                if (heroTitle) {
-                    console.log('Hero title z-index:', window.getComputedStyle(heroTitle).zIndex);
-                    console.log('Hero title position:', window.getComputedStyle(heroTitle).position);
-                }
-            } else {
-                document.body.classList.remove('opacity-mode');
-            }
-        });
-        console.log('✅ Opacity toggle initialized successfully!');
-        
-    } else {
-        console.log('❌ Opacity toggle element missing - check HTML');
     }
 }
 
