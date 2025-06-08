@@ -5,38 +5,51 @@ document.addEventListener('DOMContentLoaded', function() {
     initPricingToggle();
     initSmoothScrolling();
     initParticleEffect();
-    initTypingEffect();
+    initStepsAnimation();
+
+    initHeatmapToggle();
+    initOpacityToggle();
+    initCarousel();
+    initLightbox();
 });
 
 // Navigation functionality
 function initNavigation() {
-    const navbar = document.getElementById('navbar');
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
+    const navbar = document.querySelector('.header');
+    const hamburger = document.getElementById('mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
     
     // Mobile menu toggle
-    hamburger.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-    });
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+    }
     
     // Close mobile menu when clicking on links
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
+            if (navMenu) {
+                navMenu.classList.remove('active');
+            }
+            if (hamburger) {
+                hamburger.classList.remove('active');
+            }
         });
     });
     
     // Navbar scroll effect
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
 }
 
 // Scroll animations
@@ -55,29 +68,45 @@ function initScrollAnimations() {
         });
     }, observerOptions);
     
-    // Observe elements for animation
-    const animateElements = document.querySelectorAll('.feature-card, .step, .pricing-card');
+    // Observe elements for animation (excluding .step - handled by initStepsAnimation)
+    const animateElements = document.querySelectorAll('.feature-card, .pricing-card');
     animateElements.forEach(el => observer.observe(el));
 }
 
 // Pricing toggle functionality
 function initPricingToggle() {
-    const toggle = document.getElementById('pricing-toggle');
-    const monthlyPrices = document.querySelectorAll('.monthly');
-    const yearlyPrices = document.querySelectorAll('.yearly');
+    const toggle = document.getElementById('billing-toggle');
+    const monthlyPrices = document.querySelectorAll('.monthly-price');
+    const yearlyPrices = document.querySelectorAll('.yearly-price');
+    const monthlyPeriods = document.querySelectorAll('.monthly-period');
+    const yearlyPeriods = document.querySelectorAll('.yearly-period');
+    const monthlyTexts = document.querySelectorAll('.monthly-text');
+    const yearlyTexts = document.querySelectorAll('.yearly-text');
     
     if (toggle) {
         toggle.addEventListener('change', function() {
             if (this.checked) {
-                // Show yearly prices
+                // Show yearly prices and content
                 monthlyPrices.forEach(price => price.style.display = 'none');
-                yearlyPrices.forEach(price => price.style.display = 'block');
+                yearlyPrices.forEach(price => price.style.display = 'inline');
+                monthlyPeriods.forEach(period => period.style.display = 'none');
+                yearlyPeriods.forEach(period => period.style.display = 'inline');
+                monthlyTexts.forEach(text => text.style.display = 'none');
+                yearlyTexts.forEach(text => text.style.display = 'inline');
             } else {
-                // Show monthly prices
-                monthlyPrices.forEach(price => price.style.display = 'block');
+                // Show monthly prices and content
+                monthlyPrices.forEach(price => price.style.display = 'inline');
                 yearlyPrices.forEach(price => price.style.display = 'none');
+                monthlyPeriods.forEach(period => period.style.display = 'inline');
+                yearlyPeriods.forEach(period => period.style.display = 'none');
+                monthlyTexts.forEach(text => text.style.display = 'inline');
+                yearlyTexts.forEach(text => text.style.display = 'none');
             }
         });
+        
+        console.log('✅ Pricing toggle initialized successfully!');
+    } else {
+        console.log('❌ Pricing toggle element missing');
     }
 }
 
@@ -127,29 +156,6 @@ function initParticleEffect() {
             particles.appendChild(particle);
         }
     }
-}
-
-// Typing effect for hero title
-function initTypingEffect() {
-    const titleElement = document.querySelector('.hero-title');
-    if (!titleElement) return;
-    
-    const originalText = titleElement.innerHTML;
-    titleElement.innerHTML = '';
-    
-    let charIndex = 0;
-    const typingSpeed = 50;
-    
-    function typeChar() {
-        if (charIndex < originalText.length) {
-            titleElement.innerHTML += originalText.charAt(charIndex);
-            charIndex++;
-            setTimeout(typeChar, typingSpeed);
-        }
-    }
-    
-    // Start typing effect after a short delay
-    setTimeout(typeChar, 1000);
 }
 
 // Button click handlers
@@ -435,5 +441,361 @@ function initAccessibility() {
 
 // Initialize accessibility features
 initAccessibility();
+
+// Steps animation functionality
+function initStepsAnimation() {
+    const stepsSection = document.querySelector('.how-it-works');
+    const steps = document.querySelectorAll('.step');
+    
+    console.log('🔍 Steps animation init - Section found:', !!stepsSection, 'Steps found:', steps.length);
+    
+    if (!stepsSection || steps.length === 0) {
+        console.log('❌ Steps elements missing - check HTML');
+        return;
+    }
+
+    // Function to animate steps sequentially
+    function animateStepsSequentially() {
+        console.log('🎯 Starting sequential steps animation');
+        
+        // Start with first step immediately
+        if (steps[0]) {
+            steps[0].classList.add('animate');
+            console.log('✨ Step 1 started');
+        }
+        
+        // Animate remaining steps one after another (3 seconds each)
+        for (let i = 1; i < steps.length; i++) {
+            setTimeout(() => {
+                if (steps[i]) {
+                    steps[i].classList.add('animate');
+                    console.log(`✨ Step ${i + 1} started`);
+                }
+            }, i * 3000); // Each step starts 3 seconds after the previous one
+        }
+    }
+
+    // Create intersection observer for steps section
+    const stepsObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                console.log('🎯 Steps section in view - starting sequential animation');
+                
+                // Start sequential animation
+                animateStepsSequentially();
+                
+                // Stop observing after animation starts
+                stepsObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.3 // Trigger when 30% of section is visible
+    });
+
+    stepsObserver.observe(stepsSection);
+    console.log('✅ Steps animation initialized successfully!');
+}
+
+// Heatmap toggle functionality
+function initHeatmapToggle() {
+    const toggle = document.getElementById('heatmap-toggle');
+    const heatmapGradient = document.getElementById('hero-heatmap-gradient');
+    const buttonGradient = document.getElementById('button-heatmap-gradient');
+    
+    console.log('🔍 Heatmap init - Toggle found:', !!toggle, 'Hero gradient found:', !!heatmapGradient, 'Button gradient found:', !!buttonGradient);
+    
+    if (toggle && heatmapGradient && buttonGradient) {
+        // Убедимся, что градиенты скрыты при инициализации
+        heatmapGradient.classList.remove('active');
+        buttonGradient.classList.remove('active');
+        
+        toggle.addEventListener('change', function() {
+            console.log('🎯 Heatmap toggle:', this.checked ? 'ON' : 'OFF');
+            
+            if (this.checked) {
+                heatmapGradient.classList.add('active');
+                buttonGradient.classList.add('active');
+            } else {
+                heatmapGradient.classList.remove('active');
+                buttonGradient.classList.remove('active');
+            }
+        });
+        console.log('✅ Heatmap toggle initialized successfully!');
+        
+    } else {
+        console.log('❌ Heatmap elements missing - check HTML');
+    }
+}
+
+// Opacity map toggle functionality
+function initOpacityToggle() {
+    const toggle = document.getElementById('opacity-toggle');
+    
+    console.log('🔍 Opacity init - Toggle found:', !!toggle);
+    
+    if (toggle) {
+        toggle.addEventListener('change', function() {
+            console.log('🎯 Opacity toggle:', this.checked ? 'ON' : 'OFF');
+            
+            if (this.checked) {
+                document.body.classList.add('opacity-mode');
+                // Debug: Check if everything is working
+                console.log('Body classes:', document.body.className);
+                
+                const overlay = document.getElementById('opacity-overlay');
+                console.log('Overlay element found:', !!overlay);
+                
+                if (overlay) {
+                    console.log('Overlay styles:', window.getComputedStyle(overlay).opacity, window.getComputedStyle(overlay).visibility);
+                }
+                
+                const heroTitle = document.querySelector('.hero-title');
+                if (heroTitle) {
+                    console.log('Hero title z-index:', window.getComputedStyle(heroTitle).zIndex);
+                    console.log('Hero title position:', window.getComputedStyle(heroTitle).position);
+                }
+            } else {
+                document.body.classList.remove('opacity-mode');
+            }
+        });
+        console.log('✅ Opacity toggle initialized successfully!');
+        
+    } else {
+        console.log('❌ Opacity toggle element missing - check HTML');
+    }
+}
+
+// Carousel functionality
+function initCarousel() {
+    const track = document.getElementById('carousel-track');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    const originalSlides = document.querySelectorAll('.carousel-slide');
+    
+    if (!track || !prevBtn || !nextBtn || originalSlides.length === 0) {
+        console.log('❌ Carousel elements missing');
+        return;
+    }
+    
+    // Clone slides for infinite effect
+    const slidesToClone = 2; // Clone 2 slides at each end
+    const clonesBefore = [];
+    const clonesAfter = [];
+    
+    // Create clones for seamless infinite scroll
+    for (let i = 0; i < slidesToClone; i++) {
+        // Clone from end for beginning
+        const cloneBefore = originalSlides[originalSlides.length - 1 - i].cloneNode(true);
+        cloneBefore.classList.add('carousel-clone');
+        clonesBefore.unshift(cloneBefore);
+        
+        // Clone from beginning for end
+        const cloneAfter = originalSlides[i].cloneNode(true);
+        cloneAfter.classList.add('carousel-clone');
+        clonesAfter.push(cloneAfter);
+    }
+    
+    // Insert clones
+    clonesBefore.forEach(clone => track.insertBefore(clone, track.firstChild));
+    clonesAfter.forEach(clone => track.appendChild(clone));
+    
+    const allSlides = track.querySelectorAll('.carousel-slide');
+    const totalSlides = originalSlides.length;
+    let currentSlide = slidesToClone; // Start after the cloned slides
+    
+    // Calculate slides per view based on screen size
+    function getSlidesPerView() {
+        const width = window.innerWidth;
+        if (width <= 768) return 1;
+        if (width <= 1024) return 2;
+        return 3;
+    }
+    
+    // Drag functionality
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    let initialTransform = 0;
+    let dragThreshold = 50; // Minimum distance to trigger slide change
+    
+    // Update carousel position
+    function updateCarousel(instant = false) {
+        const slideWidth = allSlides[0].offsetWidth + (window.innerWidth <= 768 ? 20 : 30);
+        const translateX = -currentSlide * slideWidth;
+        
+        if (instant) {
+            track.style.transition = 'none';
+            track.style.transform = `translateX(${translateX}px)`;
+            // Force reflow
+            track.offsetHeight;
+            track.style.transition = 'transform 0.5s ease';
+        } else {
+            track.style.transform = `translateX(${translateX}px)`;
+        }
+    }
+    
+    // Check for infinite scroll boundaries
+    function checkInfiniteScroll() {
+        // If we're at the cloned slides at the end, jump to the beginning
+        if (currentSlide >= totalSlides + slidesToClone) {
+            currentSlide = slidesToClone;
+            updateCarousel(true);
+        }
+        // If we're at the cloned slides at the beginning, jump to the end
+        else if (currentSlide < slidesToClone) {
+            currentSlide = totalSlides + slidesToClone - 1;
+            updateCarousel(true);
+        }
+    }
+    
+    // Navigation functions
+    function nextSlide() {
+        currentSlide++;
+        updateCarousel();
+        setTimeout(checkInfiniteScroll, 500); // Check after transition
+    }
+    
+    function prevSlide() {
+        currentSlide--;
+        updateCarousel();
+        setTimeout(checkInfiniteScroll, 500); // Check after transition
+    }
+    
+    // Button event listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    
+    // Touch/Mouse drag functionality
+    function handleStart(e) {
+        isDragging = true;
+        track.style.transition = 'none';
+        
+        const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+        startX = clientX;
+        
+        // Get current transform value
+        const transform = track.style.transform;
+        const matrix = transform.match(/translateX\(([^)]+)\)/);
+        initialTransform = matrix ? parseFloat(matrix[1]) : 0;
+        
+        track.style.cursor = 'grabbing';
+    }
+    
+    function handleMove(e) {
+        if (!isDragging) return;
+        
+        e.preventDefault();
+        const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+        currentX = clientX - startX;
+        
+        const newTransform = initialTransform + currentX;
+        track.style.transform = `translateX(${newTransform}px)`;
+    }
+    
+    function handleEnd() {
+        if (!isDragging) return;
+        
+        isDragging = false;
+        track.style.transition = 'transform 0.5s ease';
+        track.style.cursor = 'grab';
+        
+        // Determine direction and distance
+        if (Math.abs(currentX) > dragThreshold) {
+            if (currentX > 0) {
+                // Dragged right (previous slide)
+                prevSlide();
+            } else {
+                // Dragged left (next slide)
+                nextSlide();
+            }
+        } else {
+            // Snap back to current position
+            updateCarousel();
+        }
+        
+        currentX = 0;
+    }
+    
+    // Mouse events
+    track.addEventListener('mousedown', handleStart);
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('mouseup', handleEnd);
+    
+    // Touch events
+    track.addEventListener('touchstart', handleStart, { passive: false });
+    track.addEventListener('touchmove', handleMove, { passive: false });
+    track.addEventListener('touchend', handleEnd);
+    
+    // Prevent default drag behavior on images
+    track.addEventListener('dragstart', (e) => e.preventDefault());
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+        }
+    });
+    
+    // Window resize handler
+    function handleResize() {
+        updateCarousel();
+    }
+    
+    window.addEventListener('resize', debounce(handleResize, 250));
+    
+    // Initialize carousel at the correct starting position
+    updateCarousel(true);
+    console.log('✅ Infinite carousel initialized successfully!');
+}
+
+// Lightbox functionality
+function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxOverlay = document.getElementById('lightbox-overlay');
+    const triggers = document.querySelectorAll('.lightbox-trigger');
+    
+    if (!lightbox || !lightboxImage || !lightboxClose || !lightboxOverlay || triggers.length === 0) {
+        console.log('❌ Lightbox elements missing');
+        return;
+    }
+    
+    // Open lightbox
+    function openLightbox(imageSrc, imageAlt) {
+        lightboxImage.src = imageSrc;
+        lightboxImage.alt = imageAlt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+    
+    // Close lightbox
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+    
+    // Add click listeners to all trigger images
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+            openLightbox(this.src, this.alt);
+        });
+    });
+    
+    // Close lightbox events
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxOverlay.addEventListener('click', closeLightbox);
+    
+    // Close with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+    
+    console.log('✅ Lightbox initialized successfully!');
+}
 
 console.log('Aitracking Landing Page loaded successfully! 🚀'); 

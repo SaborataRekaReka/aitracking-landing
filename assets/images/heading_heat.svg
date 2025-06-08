@@ -1,0 +1,23 @@
+<svg width="829" height="382" viewBox="0 0 829 382" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_f_2132_1498)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M302.043 60.544C374.332 64.991 537.976 68.8245 592.572 85.7523C698.299 78.9848 755.035 131.671 767.275 158.769C781.214 189.628 697.402 298.461 622.356 315.958C549.29 332.993 457.69 307.807 370.198 303.936C254.748 303.936 194.832 307.282 138.922 293.971C73.7167 278.447 67.4497 256.046 55.5955 229.036C41.6518 197.266 37.3051 159.685 105.956 137.949C173.687 116.505 211.508 54.9746 302.043 60.544Z" fill="url(#paint0_radial_2132_1498)" fill-opacity="0.62"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M302.043 60.544C374.332 64.991 537.976 68.8245 592.572 85.7523C698.299 78.9848 755.035 131.671 767.275 158.769C781.214 189.628 697.402 298.461 622.356 315.958C549.29 332.993 457.69 307.807 370.198 303.936C254.748 303.936 194.832 307.282 138.922 293.971C73.7167 278.447 67.4497 256.046 55.5955 229.036C41.6518 197.266 37.3051 159.685 105.956 137.949C173.687 116.505 211.508 54.9746 302.043 60.544Z" fill="url(#paint1_radial_2132_1498)" fill-opacity="0.62"/>
+</g>
+<defs>
+<filter id="filter0_f_2132_1498" x="-12.1071" y="0.88924" width="840.214" height="380.222" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="29.65" result="effect1_foregroundBlur_2132_1498"/>
+</filter>
+<radialGradient id="paint0_radial_2132_1498" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(412.68 186.575) scale(324.948 99.1282)">
+<stop stop-color="#FF0049" stop-opacity="0.75"/>
+<stop offset="0.524038" stop-color="#FFED49" stop-opacity="0.65"/>
+<stop offset="1" stop-color="#9ADB7A" stop-opacity="0.52"/>
+</radialGradient>
+<radialGradient id="paint1_radial_2132_1498" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(412.68 186.575) scale(324.948 99.1282)">
+<stop stop-color="#FF0049" stop-opacity="0.75"/>
+<stop offset="0.524038" stop-color="#FFED49" stop-opacity="0.65"/>
+<stop offset="1" stop-color="#9ADB7A" stop-opacity="0.52"/>
+</radialGradient>
+</defs>
+</svg>
