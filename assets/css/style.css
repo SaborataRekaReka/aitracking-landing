@@ -464,10 +464,7 @@ body.opacity-mode .opacity-overlay {
     visibility: visible;
 }
 
-/* Dark background for opacity mode */
-body.opacity-mode {
-    background-color: #000;
-}
+
 
 /* Hide background patterns */
 body.opacity-mode .header::before,
