@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aitracking - Make design predictable with 92% AI accuracy">
+    <meta name="keywords" content="AI, design, UX, analytics, user experience">
+    <meta name="author" content="Aitracking">
+    
+    <title>Aitracking - Make design predictable</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="apple-touch-icon" href="../assets/favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <!-- Logo -->
+                <div class="nav-brand">
+                    <div class="logo-container">
+                        <img src="../assets/images/logo.svg" alt="Aitracking" height="42">
+                    </div>
+                </div>
+                
+                <!-- Navigation -->
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link">About</a></li>
+                    <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                    <li><a href="#" class="nav-link">Blog</a></li>
+                    <li><a href="#" class="nav-link">Contacts</a></li>
+                </ul>
+                
+                <!-- Language switcher -->
+                <div class="language-switcher">
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                    <span class="lang-divider">|</span>
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                </div>
+
+                <!-- Auth buttons -->
+                <div class="nav-auth">
+                    <button class="btn btn-ghost">Sign Up</button>
+                    <button class="btn btn-primary">Login</button>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Left content -->
+                <div class="hero-left">
+                    <!-- AI Badge -->
+                    <div class="ai-badge" id="ai-badge">
+                        <img src="../assets/images/stars.svg" alt="Stars" width="12" height="12">
+                        <span>92% AI accuracy</span>
+                    </div>
+                    
+                    <!-- Main heading -->
+                    <h1 class="hero-title">
+                        <!-- Heatmap gradient background -->
+                        <div class="hero-heatmap-gradient" id="hero-heatmap-gradient"></div>
+                        <span class="hero-title-text">
+                            <span id="title-word-1">Eye-tracking</span> <span id="title-word-2">analysis</span><br>
+                            <span id="title-word-3">of design</span>
+                            <div class="inline-toggle-container">
+                                <label class="inline-switch">
+                                    <input type="checkbox" id="heatmap-toggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </span>
+                    </h1>
+                    
+                    <!-- Description -->
+                    <p class="hero-description">
+                        See your design through users' eyes<br>
+                        and make it truly<br>
+                        effective
+                    </p>
+                    
+                    <!-- CTA buttons -->
+                    <div class="hero-buttons">
+                        <!-- Button heatmap gradient background -->
+                        <div class="button-heatmap-gradient" id="button-heatmap-gradient"></div>
+                        <button class="btn btn-outline">
+                            <img src="../assets/images/arrow-circle-broken-down.svg" alt="Arrow down" width="16" height="16">
+                            Learn more
+                        </button>
+                        <button class="btn btn-primary" id="cta-button">
+                            Get started
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right toggle switches -->
+                <div class="hero-right">
+                    <div class="hero-carousel">
+                        <div class="hero-carousel-track">
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="heatmap-blobs" id="heatmap-blobs">
+                <div class="blob blob-title"></div>
+                <div class="blob blob-button"></div>
+                <div class="blob blob-toggle"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- How it Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="steps-container">
+                <div class="step" data-step="1">
+                    <div class="step-progress-line">
+                        <div class="step-progress-fill"></div>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Upload layout</h3>
+                        <p class="step-description">Select an image for analysis</p>
+                    </div>
+                </div>
+
+                <div class="step" data-step="2">
+                    <div class="step-progress-line">
+                        <div class="step-progress-fill"></div>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Get analysis</h3>
+                        <p class="step-description">Accurate results in one minute</p>
+                    </div>
+                </div>
+
+                <div class="step" data-step="3">
+                    <div class="step-progress-line">
+                        <div class="step-progress-fill"></div>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Study results</h3>
+                        <p class="step-description">Four reports</p>
+                    </div>
+                </div>
+
+                <div class="step" data-step="4">
+                    <div class="step-progress-line">
+                        <div class="step-progress-fill"></div>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Make changes</h3>
+                        <p class="step-description">Change design, try again</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases">
+        <div class="container">
+            <div class="use-cases-header">
+                <div class="use-cases-left">
+                    <p class="use-cases-subtitle">How to use</p>
+                    <h2 class="use-cases-title">How eye-tracking is useful</h2>
+                    <p class="use-cases-description">Tools and strategies modern teams need to help their companies grow.</p>
+                </div>
+                <div class="use-cases-right">
+                    <button class="btn btn-primary">Our pricing</button>
+                </div>
+            </div>
+            
+            <div class="carousel-container">
+                <button class="carousel-btn carousel-btn-prev" id="carousel-prev">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carousel-track">
+                        <div class="carousel-slide">
+                            <div class="use-case-card">
+                                <div class="use-case-image">
+                                    <img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" 
+                                         onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
+                                         alt="Heatmap analysis of pharmacy website"
+                                         class="lightbox-trigger">
+                                </div>
+                                <div class="use-case-content">
+                                    <span class="use-case-category websites">Websites</span>
+                                    <h3 class="use-case-card-title">Pharmacy website attention analysis</h3>
+                                    <p class="use-case-card-description">Identify which elements attract buyers' attention: promotions, cart buttons, or search bar</p>
+                                    <a href="#" class="use-case-link">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="use-case-card">
+                                <div class="use-case-image">
+                                    <img src="../assets/images/examples/0196339c-2bd4-4d55-9299-a53395ea7579_gazeplot.png" 
+                                         onerror="this.src='https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
+                                         alt="Gazeplot analysis of marketplace"
+                                         class="lightbox-trigger">
+                                </div>
+                                <div class="use-case-content">
+                                    <span class="use-case-category marketplace">Marketplaces</span>
+                                    <h3 class="use-case-card-title">Stand out on marketplaces</h3>
+                                    <p class="use-case-card-description">On Amazon, eBay and other marketplaces, sales depend on how much more attractive your listing is than competitors</p>
+                                    <a href="#" class="use-case-link">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="use-case-card">
+                                <div class="use-case-image">
+                                    <img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" 
+                                         onerror="this.src='https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
+                                         alt="Mobile app analysis"
+                                         class="lightbox-trigger">
+                                </div>
+                                <div class="use-case-content">
+                                    <span class="use-case-category mobile">Mobile</span>
+                                    <h3 class="use-case-card-title">App interface testing</h3>
+                                    <p class="use-case-card-description">Test mobile app screens before development to save time and money</p>
+                                    <a href="#" class="use-case-link">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="use-case-card">
+                                <div class="use-case-image">
+                                    <img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" 
+                                         onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
+                                         alt="Advertisement analysis"
+                                         class="lightbox-trigger">
+                                </div>
+                                <div class="use-case-content">
+                                    <span class="use-case-category advertising">Advertising</span>
+                                    <h3 class="use-case-card-title">Ad banner testing</h3>
+                                    <p class="use-case-card-description">Test advertising creatives to maximize click-through rates</p>
+                                    <a href="#" class="use-case-link">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="use-case-card">
+                                <div class="use-case-image">
+                                    <img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" 
+                                         onerror="this.src='https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
+                                         alt="Email analysis"
+                                         class="lightbox-trigger">
+                                </div>
+                                <div class="use-case-content">
+                                    <span class="use-case-category email">Email</span>
+                                    <h3 class="use-case-card-title">Email template optimization</h3>
+                                    <p class="use-case-card-description">Optimize email layouts for better engagement and conversion</p>
+                                    <a href="#" class="use-case-link">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="use-case-card">
+                                <div class="use-case-image">
+                                    <img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" 
+                                         onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
+                                         alt="Dashboard analysis"
+                                         class="lightbox-trigger">
+                                </div>
+                                <div class="use-case-content">
+                                    <span class="use-case-category dashboard">Dashboard</span>
+                                    <h3 class="use-case-card-title">Admin panel UX</h3>
+                                    <p class="use-case-card-description">Improve admin interface usability and reduce training time</p>
+                                    <a href="#" class="use-case-link">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-btn carousel-btn-next" id="carousel-next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology">
+        <div class="container">
+            <div class="technology-content">
+                <div class="technology-left">
+                    <h2 class="technology-title">
+                        About <span class="technology-eyetracking">
+                            eye-tracking
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="white"/>
+                            </svg>
+                        </span><br>
+                        technology
+                    </h2>
+                    <p class="technology-description">
+                        The neural network models the behavior of 40 pairs of eyes and records the results in a simple report. The network is based on 30 years of research and testing 4000 images
+                    </p>
+                    
+                    <div class="technology-buttons">
+                                                    <button class="video-btn">
+                                <div class="video-btn-content">
+                                    <div class="play-icon"></div>
+                                    <span>Watch video</span>
+                                </div>
+                            </button>
+                        <button class="btn-text">FAQ</button>
+                    </div>
+                    
+                    <div class="technology-inline-stats">
+                        <div class="inline-stat-item">
+                            <div class="inline-stat-number">92%</div>
+                            <p class="inline-stat-description">Research accuracy</p>
+                        </div>
+                        <div class="stats-divider"></div>
+                        <div class="inline-stat-item">
+                            <div class="inline-stat-number">-80%</div>
+                            <p class="inline-stat-description">80% cheaper than regular research</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="technology-right">
+                    <div class="technology-image">
+                        <div class="technology-shape">
+                            <img src="../assets/images/shape.svg" alt="Background shape" class="shape-bg">
+                        </div>
+                        <div class="technology-woman">
+                            <img src="../assets/images/woman_1.png" alt="Woman in VR glasses" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=600&fit=crop&crop=face&cs=tinysrgb'" 
+                                 class="woman-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Statistics Section -->
+    <section class="cta-stats">
+        <div class="container">
+            <div class="cta-stats-container">
+                <div class="cta-stats-header">
+                    <h2 class="cta-stats-title">How CTA response changes</h2>
+                    <p class="cta-stats-description">Comparison of different optimization approaches effectiveness</p>
+                </div>
+                
+                <div class="cta-stats-content">
+                    <div class="cta-stats-left">
+                        <div class="stats-chart">
+                            <div class="chart-label">
+                                <span class="label-text">Number of conversions</span>
+                                <img src="../assets/images/asterisk.svg" alt="*" class="label-icon" />
+                            </div>
+                            <div class="stat-bar">
+                                <div class="stat-value">200</div>
+                                <div class="stat-column optimized">
+                                    <div class="stat-label">With Eye-Tracking</div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-bar">
+                                <div class="stat-value">80</div>
+                                <div class="stat-column improved">
+                                    <div class="stat-label">After A/B test</div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-bar">
+                                <div class="stat-value">50</div>
+                                <div class="stat-column baseline">
+                                    <div class="stat-label">No testing</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cta-stats-right">
+                        <div class="stats-insight">
+                            <h3 class="insight-title">
+                                CTAs can be improved
+                            </h3>
+                            <p class="insight-description">
+                                The biggest response growth comes from precise button placement based on Eye-Tracking data. Proper positioning increases conversion by 4x.
+                            </p>
+                            <div class="insight-source">
+                                * Based on Neil Patel article – 7 Marketing Lessons from Eye-Tracking Studies, 2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients">
+        <div class="container">
+            <p class="clients-subtitle">technology trusted by 30k+ clients worldwide</p>
+            <div class="clients-carousel">
+                <div class="clients-track">
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/id02vXLS_6_1749896423793 1.svg" alt="Client logo">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/Nielsen_2021 1.svg" alt="Nielsen">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/Ogilvy_logo 1.svg" alt="Ogilvy">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/Grey-Group-Logo 1.svg" alt="Grey Group">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/SimilarWeb_logo 1.svg" alt="SimilarWeb">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/Walmart_logo 1.svg" alt="Walmart">
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/id02vXLS_6_1749896423793 1.svg" alt="Client logo">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/Nielsen_2021 1.svg" alt="Nielsen">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/Ogilvy_logo 1.svg" alt="Ogilvy">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/Grey-Group-Logo 1.svg" alt="Grey Group">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/SimilarWeb_logo 1.svg" alt="SimilarWeb">
+                    </div>
+                    <div class="client-logo">
+                        <img src="../assets/images/logos/Walmart_logo 1.svg" alt="Walmart">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources">
+        <div class="container">
+            <div class="resources-header">
+                <h2 class="resources-title">
+                    Resources You May <br>
+                    Find <span class="resources-interesting">
+                        Interesting
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="white"/>
+                        </svg>
+                    </span>
+                </h2>
+                <p class="resources-description">
+                    Discover a curated selection of resources to<br>
+                    boost your knowledge and keep you ahead in<br>
+                    your field
+                </p>
+            </div>
+            
+            <div class="resources-content">
+                <div class="resources-left">
+                    <div class="resources-image">
+                        <img id="resource-image" src="../assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f502.jpg" alt="Interface" />
+                    </div>
+                </div>
+                
+                <div class="resources-right">
+                    <div class="resources-list">
+                        <div class="resource-item active" data-tab="pricing" data-image="../assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f502.jpg">
+                            <div class="resource-number">01</div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Pricing and packaging</h3>
+                                <p class="resource-description">Select from our flexible pricing and tailored packages</p>
+                                <a href="#pricing" class="resource-btn">Try it</a>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item" data-tab="billing" data-image="../assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f5022.jpg">
+                            <div class="resource-number">02</div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Billing and payments</h3>
+                                <p class="resource-description">Simple and secure billing and payment management</p>
+                                <a href="#pricing" class="resource-btn">Try it</a>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item" data-tab="trends" data-image="../assets/images/check.svg">
+                            <div class="resource-number">03</div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Industry trends</h3>
+                                <p class="resource-description">Stay updated with the latest industry trends and insights</p>
+                                <a href="#pricing" class="resource-btn">Try it</a>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item" data-tab="report" data-image="../assets/images/logo.svg">
+                            <div class="resource-number">04</div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">The SEI Report</h3>
+                                <p class="resource-description">The SEI Report provides key insights to guide your decisions</p>
+                                <a href="#pricing" class="resource-btn">Try it</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="pricing-header">
+                <h2 class="pricing-title">Choose the right plan</h2>
+                <p class="pricing-subtitle">Pricing plans designed to meet your needs as you grow</p>
+                
+                <div class="pricing-toggle">
+                    <span class="toggle-label">Monthly</span>
+                    <label class="billing-switch">
+                        <input type="checkbox" id="billing-toggle">
+                        <span class="slider-billing"></span>
+                    </label>
+                    <span class="toggle-label">
+                        Annually 
+                        <span class="discount-badge">50% off</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="pricing-cards">
+                <!-- Basic Plan -->
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3 class="plan-name">Basic</h3>
+                        <p class="plan-description">Understand service value</p>
+                    </div>
+                    
+                    <div class="plan-pricing">
+                        <div class="price-container">
+                            <span class="currency">$</span>
+                            <span class="amount monthly-price">7</span>
+                            <span class="amount yearly-price" style="display: none;">3.5</span>
+                            <span class="billing-period">
+                                <span class="monthly-period">/ month</span>
+                                <span class="yearly-period" style="display: none;">/ month</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <button class="plan-button">
+                        <span class="monthly-text">Choose</span>
+                        <span class="yearly-text" style="display: none;">Choose</span>
+                    </button>
+                    
+                    <div class="plan-features">
+                        <p class="features-subtitle">Try the service risk-free and understand the value in minutes</p>
+                        <ul>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 10 analyses</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 1 GB storage</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 30 days storage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Starter Plan -->
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3 class="plan-name">Starter</h3>
+                        <p class="plan-description">Regular use</p>
+                    </div>
+                    
+                    <div class="plan-pricing">
+                        <div class="price-container">
+                            <span class="currency">$</span>
+                            <span class="amount monthly-price">28</span>
+                            <span class="amount yearly-price" style="display: none;">14</span>
+                            <span class="billing-period">
+                                <span class="monthly-period">/ month</span>
+                                <span class="yearly-period" style="display: none;">/ month</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <button class="plan-button">
+                        <span class="monthly-text">Choose</span>
+                        <span class="yearly-text" style="display: none;">Choose</span>
+                    </button>
+                    
+                    <div class="plan-features">
+                        <p class="features-subtitle">For those who regularly check creatives or A/B tests in small projects</p>
+                        <ul>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 50 analyses</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 2 GB storage</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 30 days storage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="pricing-card featured">
+                    <div class="plan-header">
+                        <div class="plan-name-row">
+                            <h3 class="plan-name">Pro</h3>
+                            <div class="popular-badge">
+                                <img src="../assets/images/stars.svg" alt="Stars" width="12" height="12">
+                                <span>Popular</span>
+                            </div>
+                        </div>
+                        <p class="plan-description">For agencies and specialists</p>
+                    </div>
+                    
+                    <div class="plan-pricing">
+                        <div class="price-container">
+                            <span class="currency">$</span>
+                            <span class="amount monthly-price">63</span>
+                            <span class="amount yearly-price" style="display: none;">31.5</span>
+                            <span class="billing-period">
+                                <span class="monthly-period">/ month</span>
+                                <span class="yearly-period" style="display: none;">/ month</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <button class="plan-button featured-button">
+                        <span class="monthly-text">Choose</span>
+                        <span class="yearly-text" style="display: none;">Choose</span>
+                    </button>
+                    
+                    <div class="plan-features">
+                        <p class="features-subtitle">Best price-to-volume ratio. Suitable for agencies and active marketers</p>
+                        <ul>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 150 analyses</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 3 GB storage</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 30 days storage</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> AI assistant help</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3 class="plan-name">Enterprise</h3>
+                        <p class="plan-description">Maximum capabilities</p>
+                    </div>
+                    
+                    <div class="plan-pricing">
+                        <div class="price-container">
+                            <span class="currency">$</span>
+                            <span class="amount monthly-price">140</span>
+                            <span class="amount yearly-price" style="display: none;">70</span>
+                            <span class="billing-period">
+                                <span class="monthly-period">/ month</span>
+                                <span class="yearly-period" style="display: none;">/ month</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <button class="plan-button">
+                        <span class="monthly-text">Choose</span>
+                        <span class="yearly-text" style="display: none;">Choose</span>
+                    </button>
+                    
+                    <div class="plan-features">
+                        <p class="features-subtitle">Maximum savings for teams and large clients</p>
+                        <ul>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 400 analyses</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 5 GB storage</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> 90 days storage</li>
+                            <li><img src="../assets/images/check.svg" alt="Check" class="check-icon"> AI assistant help</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-overlay" id="lightbox-overlay"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightbox-close">&times;</button>
+            <img class="lightbox-image" id="lightbox-image" src="" alt="">
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+</body>
+</html> 
+

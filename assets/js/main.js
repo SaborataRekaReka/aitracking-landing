@@ -6,12 +6,63 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initParticleEffect();
     initStepsAnimation();
-
     initHeatmapToggle();
-    initOpacityToggle();
     initCarousel();
     initLightbox();
+    initHeroCarousel();
+    initResourceTabs();
+    initLanguageSwitcher();
+    initStatsAnimation();
+    initTabs();
+    initPromoCodeForm();
+    document.querySelectorAll('.hero-carousel-slide img').forEach(img => {
+        img.addEventListener('click', function(e) {
+            openFullscreenImage(this.src);
+        });
+    });
 });
+
+// Detect current language from page
+let currentLanguage = document.documentElement.lang || 'ru';
+
+// Language switcher functionality
+function initLanguageSwitcher() {
+    const langButtons = document.querySelectorAll('.lang-btn');
+    
+    langButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            switchLanguage(lang);
+        });
+    });
+}
+
+function switchLanguage(lang) {
+    if (lang === currentLanguage) return;
+    
+    // Determine current path and redirect accordingly
+    const currentPath = window.location.pathname;
+    
+    if (lang === 'en') {
+        if (currentPath.includes('/en/')) {
+            // Already on English page
+            return;
+        } else {
+            // Go to English version
+            window.location.href = '/en/';
+        }
+    } else if (lang === 'ru') {
+        if (currentPath.includes('/en/')) {
+            // Go from English to Russian
+            window.location.href = '/';
+        } else {
+            // Already on Russian page
+            return;
+        }
+    }
+    
+    console.log(`✅ Redirecting to ${lang} version`);
+}
 
 // Navigation functionality
 function initNavigation() {
@@ -208,360 +259,71 @@ function debounce(func, wait) {
     };
 }
 
-// Performance optimizations
-const debouncedScroll = debounce(function() {
-    // Handle scroll events efficiently
-    updateScrollProgress();
-}, 10);
-
-function updateScrollProgress() {
-    const scrolled = window.pageYOffset;
-    const maxHeight = document.body.scrollHeight - window.innerHeight;
-    const progress = (scrolled / maxHeight) * 100;
-    
-    // Update progress bar if exists
-    const progressBar = document.querySelector('.scroll-progress');
-    if (progressBar) {
-        progressBar.style.width = progress + '%';
-    }
-}
-
-window.addEventListener('scroll', debouncedScroll);
-
-// Stats counter animation
-function initStatsCounter() {
-    const stats = document.querySelectorAll('.stat-number');
-    
-    const observerOptions = {
-        threshold: 0.5
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    stats.forEach(stat => observer.observe(stat));
-}
-
-function animateCounter(element) {
-    const target = parseInt(element.textContent.replace(/[^\d]/g, ''));
-    const suffix = element.textContent.replace(/[\d]/g, '');
-    let current = 0;
-    const increment = target / 50;
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            current = target;
-            clearInterval(timer);
-        }
-        element.textContent = Math.floor(current) + suffix;
-    }, 20);
-}
-
-// Initialize stats counter after DOM is loaded
-setTimeout(initStatsCounter, 500);
-
-// Form handling (if forms are added later)
-function handleFormSubmit(formElement) {
-    formElement.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
-        
-        // Show loading state
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.innerHTML = '<span class="loading"></span> Отправка...';
-        submitBtn.disabled = true;
-        
-        // Simulate form submission
-        setTimeout(() => {
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Отправлено!';
-            submitBtn.classList.add('success');
-            
-            // Reset form after success
-            setTimeout(() => {
-                this.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('success');
-            }, 3000);
-        }, 2000);
-    });
-}
-
-// Initialize forms
-document.querySelectorAll('form').forEach(handleFormSubmit);
-
-// Add CSS for mobile navigation
-const mobileNavCSS = `
-    @media (max-width: 768px) {
-        .nav-menu {
-            position: fixed;
-            top: 80px;
-            left: -100%;
-            width: 100%;
-            height: calc(100vh - 80px);
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 2rem;
-            transition: left 0.3s ease;
-            z-index: 999;
-        }
-        
-        .nav-menu.active {
-            left: 0;
-        }
-        
-        .nav-links {
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .nav-buttons {
-            flex-direction: column;
-            width: 100%;
-            max-width: 300px;
-        }
-        
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-        
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-    }
-`;
-
-// Inject mobile navigation CSS
-const style = document.createElement('style');
-style.textContent = mobileNavCSS;
-document.head.appendChild(style);
-
-// Analytics and tracking (placeholder)
-function trackEvent(eventName, eventData = {}) {
-    // Placeholder for analytics tracking
-    console.log('Event tracked:', eventName, eventData);
-    
-    // Example: Google Analytics 4
-    // gtag('event', eventName, eventData);
-    
-    // Example: Facebook Pixel
-    // fbq('track', eventName, eventData);
-}
-
-// Track button clicks
-document.addEventListener('click', function(e) {
-    if (e.target.matches('.btn') || e.target.closest('.btn')) {
-        const button = e.target.matches('.btn') ? e.target : e.target.closest('.btn');
-        const buttonText = button.textContent.trim();
-        const buttonType = button.classList.contains('btn-primary') ? 'primary' : 'secondary';
-        
-        trackEvent('button_click', {
-            button_text: buttonText,
-            button_type: buttonType,
-            page_section: getPageSection(button)
-        });
-    }
-});
-
-function getPageSection(element) {
-    const section = element.closest('section');
-    return section ? section.id || section.className : 'unknown';
-}
-
-// Error handling
-window.addEventListener('error', function(e) {
-    console.error('JavaScript error:', e.error);
-    // Log to external service in production
-});
-
-// Performance monitoring
-window.addEventListener('load', function() {
-    // Log page load time
-    const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-    console.log('Page load time:', loadTime + 'ms');
-    
-    trackEvent('page_load', {
-        load_time: loadTime
-    });
-});
-
-// Accessibility improvements
-function initAccessibility() {
-    // Add skip link
-    const skipLink = document.createElement('a');
-    skipLink.href = '#main-content';
-    skipLink.className = 'skip-link';
-    skipLink.textContent = 'Перейти к основному содержанию';
-    skipLink.style.cssText = `
-        position: absolute;
-        top: -40px;
-        left: 6px;
-        background: var(--primary-color);
-        color: white;
-        padding: 8px;
-        text-decoration: none;
-        border-radius: 4px;
-        z-index: 1001;
-        transition: top 0.3s;
-    `;
-    
-    skipLink.addEventListener('focus', function() {
-        this.style.top = '6px';
-    });
-    
-    skipLink.addEventListener('blur', function() {
-        this.style.top = '-40px';
-    });
-    
-    document.body.insertBefore(skipLink, document.body.firstChild);
-    
-    // Add main content ID
-    const heroSection = document.querySelector('.hero');
-    if (heroSection) {
-        heroSection.id = 'main-content';
-    }
-}
-
-// Initialize accessibility features
-initAccessibility();
-
-// Steps animation functionality
+// Steps animation
 function initStepsAnimation() {
-    const stepsSection = document.querySelector('.how-it-works');
     const steps = document.querySelectorAll('.step');
     
-    console.log('🔍 Steps animation init - Section found:', !!stepsSection, 'Steps found:', steps.length);
-    
-    if (!stepsSection || steps.length === 0) {
-        console.log('❌ Steps elements missing - check HTML');
-        return;
-    }
-
-    // Function to animate steps sequentially
-    function animateStepsSequentially() {
-        console.log('🎯 Starting sequential steps animation');
-        
-        // Start with first step immediately
-        if (steps[0]) {
-            steps[0].classList.add('animate');
-            console.log('✨ Step 1 started');
-        }
-        
-        // Animate remaining steps one after another (3 seconds each)
-        for (let i = 1; i < steps.length; i++) {
-            setTimeout(() => {
-                if (steps[i]) {
-                    steps[i].classList.add('animate');
-                    console.log(`✨ Step ${i + 1} started`);
-                }
-            }, i * 3000); // Each step starts 3 seconds after the previous one
-        }
-    }
-
-    // Create intersection observer for steps section
-    const stepsObserver = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                console.log('🎯 Steps section in view - starting sequential animation');
-                
-                // Start sequential animation
                 animateStepsSequentially();
-                
-                // Stop observing after animation starts
-                stepsObserver.unobserve(entry.target);
+                observer.disconnect();
             }
         });
-    }, {
-        threshold: 0.3 // Trigger when 30% of section is visible
-    });
-
-    stepsObserver.observe(stepsSection);
-    console.log('✅ Steps animation initialized successfully!');
+    }, { threshold: 0.1 });
+    
+    if (steps.length > 0) {
+        observer.observe(steps[0]);
+    }
+    
+    function animateStepsSequentially() {
+        const steps = document.querySelectorAll('.step');
+        function animateStep(index) {
+            if (index >= steps.length) return;
+            const step = steps[index];
+            step.classList.add('animate');
+            const progressFill = step.querySelector('.step-progress-fill');
+            if (progressFill) {
+                progressFill.style.width = '100%';
+                // Ждём окончания transition, затем запускаем следующий шаг
+                progressFill.addEventListener('transitionend', function handler(e) {
+                    if (e.propertyName === 'width') {
+                        progressFill.removeEventListener('transitionend', handler);
+                        animateStep(index + 1);
+                    }
+                });
+            } else {
+                animateStep(index + 1);
+            }
+        }
+        animateStep(0);
+    }
 }
 
 // Heatmap toggle functionality
 function initHeatmapToggle() {
     const toggle = document.getElementById('heatmap-toggle');
-    const heatmapGradient = document.getElementById('hero-heatmap-gradient');
-    const buttonGradient = document.getElementById('button-heatmap-gradient');
+    const heatmapBlobs = document.getElementById('heatmap-blobs');
+    const heatmapGradients = document.querySelectorAll('.hero-heatmap-gradient, .button-heatmap-gradient');
     
-    console.log('🔍 Heatmap init - Toggle found:', !!toggle, 'Hero gradient found:', !!heatmapGradient, 'Button gradient found:', !!buttonGradient);
+    console.log('🔥 Heatmap init - Toggle found:', !!toggle, 'Blobs found:', !!heatmapBlobs);
     
-    if (toggle && heatmapGradient && buttonGradient) {
-        // Убедимся, что градиенты скрыты при инициализации
-        heatmapGradient.classList.remove('active');
-        buttonGradient.classList.remove('active');
-        
+    if (toggle && heatmapBlobs) {
         toggle.addEventListener('change', function() {
-            console.log('🎯 Heatmap toggle:', this.checked ? 'ON' : 'OFF');
+            console.log('🔥 Heatmap toggle:', this.checked ? 'ON' : 'OFF');
             
             if (this.checked) {
-                heatmapGradient.classList.add('active');
-                buttonGradient.classList.add('active');
+                heatmapBlobs.classList.add('active');
+                heatmapGradients.forEach(gradient => gradient.classList.add('active'));
             } else {
-                heatmapGradient.classList.remove('active');
-                buttonGradient.classList.remove('active');
+                heatmapBlobs.classList.remove('active');
+                heatmapGradients.forEach(gradient => gradient.classList.remove('active'));
             }
         });
-        console.log('✅ Heatmap toggle initialized successfully!');
         
+        console.log('✅ Heatmap toggle initialized successfully!');
     } else {
         console.log('❌ Heatmap elements missing - check HTML');
-    }
-}
-
-// Opacity map toggle functionality
-function initOpacityToggle() {
-    const toggle = document.getElementById('opacity-toggle');
-    
-    console.log('🔍 Opacity init - Toggle found:', !!toggle);
-    
-    if (toggle) {
-        toggle.addEventListener('change', function() {
-            console.log('🎯 Opacity toggle:', this.checked ? 'ON' : 'OFF');
-            
-            if (this.checked) {
-                document.body.classList.add('opacity-mode');
-                // Debug: Check if everything is working
-                console.log('Body classes:', document.body.className);
-                
-                const overlay = document.getElementById('opacity-overlay');
-                console.log('Overlay element found:', !!overlay);
-                
-                if (overlay) {
-                    console.log('Overlay styles:', window.getComputedStyle(overlay).opacity, window.getComputedStyle(overlay).visibility);
-                }
-                
-                const heroTitle = document.querySelector('.hero-title');
-                if (heroTitle) {
-                    console.log('Hero title z-index:', window.getComputedStyle(heroTitle).zIndex);
-                    console.log('Hero title position:', window.getComputedStyle(heroTitle).position);
-                }
-            } else {
-                document.body.classList.remove('opacity-mode');
-            }
-        });
-        console.log('✅ Opacity toggle initialized successfully!');
-        
-    } else {
-        console.log('❌ Opacity toggle element missing - check HTML');
     }
 }
 
@@ -570,184 +332,247 @@ function initCarousel() {
     const track = document.getElementById('carousel-track');
     const prevBtn = document.getElementById('carousel-prev');
     const nextBtn = document.getElementById('carousel-next');
-    const originalSlides = document.querySelectorAll('.carousel-slide');
     
-    if (!track || !prevBtn || !nextBtn || originalSlides.length === 0) {
-        console.log('❌ Carousel elements missing');
-        return;
-    }
+    if (!track || !prevBtn || !nextBtn) return;
     
-    // Clone slides for infinite effect
-    const slidesToClone = 2; // Clone 2 slides at each end
-    const clonesBefore = [];
-    const clonesAfter = [];
-    
-    // Create clones for seamless infinite scroll
-    for (let i = 0; i < slidesToClone; i++) {
-        // Clone from end for beginning
-        const cloneBefore = originalSlides[originalSlides.length - 1 - i].cloneNode(true);
-        cloneBefore.classList.add('carousel-clone');
-        clonesBefore.unshift(cloneBefore);
-        
-        // Clone from beginning for end
-        const cloneAfter = originalSlides[i].cloneNode(true);
-        cloneAfter.classList.add('carousel-clone');
-        clonesAfter.push(cloneAfter);
-    }
-    
-    // Insert clones
-    clonesBefore.forEach(clone => track.insertBefore(clone, track.firstChild));
-    clonesAfter.forEach(clone => track.appendChild(clone));
-    
-    const allSlides = track.querySelectorAll('.carousel-slide');
-    const totalSlides = originalSlides.length;
-    let currentSlide = slidesToClone; // Start after the cloned slides
-    
-    // Calculate slides per view based on screen size
-    function getSlidesPerView() {
-        const width = window.innerWidth;
-        if (width <= 768) return 1;
-        if (width <= 1024) return 2;
-        return 3;
-    }
-    
-    // Drag functionality
-    let isDragging = false;
+    let currentIndex = 0;
+    let isTransitioning = false;
     let startX = 0;
     let currentX = 0;
-    let initialTransform = 0;
-    let dragThreshold = 50; // Minimum distance to trigger slide change
+    let isDragging = false;
     
-    // Update carousel position
+    const slides = track.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+    
+    // Clone slides for infinite scroll
+    slides.forEach(slide => {
+        const clone = slide.cloneNode(true);
+        track.appendChild(clone);
+    });
+    
+    function getSlidesPerView() {
+        if (window.innerWidth >= 1200) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
+    }
+    
     function updateCarousel(instant = false) {
-        const slideWidth = allSlides[0].offsetWidth + (window.innerWidth <= 768 ? 20 : 30);
-        const translateX = -currentSlide * slideWidth;
+        const slidesPerView = getSlidesPerView();
+        const slideWidth = 100 / slidesPerView;
+        const translateX = -currentIndex * slideWidth;
         
         if (instant) {
-            track.style.transition = 'none';
-            track.style.transform = `translateX(${translateX}px)`;
-            // Force reflow
-            track.offsetHeight;
-            track.style.transition = 'transform 0.5s ease';
+            setTranslate(translateX, false);
         } else {
-            track.style.transform = `translateX(${translateX}px)`;
+            setTranslate(translateX, true);
+            isTransitioning = true;
+            setTimeout(() => {
+                isTransitioning = false;
+                checkInfiniteScroll();
+            }, 300);
         }
     }
     
-    // Check for infinite scroll boundaries
     function checkInfiniteScroll() {
-        // If we're at the cloned slides at the end, jump to the beginning
-        if (currentSlide >= totalSlides + slidesToClone) {
-            currentSlide = slidesToClone;
+        if (currentIndex >= totalSlides) {
+            currentIndex = 0;
             updateCarousel(true);
-        }
-        // If we're at the cloned slides at the beginning, jump to the end
-        else if (currentSlide < slidesToClone) {
-            currentSlide = totalSlides + slidesToClone - 1;
+        } else if (currentIndex < 0) {
+            currentIndex = totalSlides - 1;
             updateCarousel(true);
         }
     }
     
-    // Navigation functions
     function nextSlide() {
-        currentSlide++;
+        if (isTransitioning) return;
+        currentIndex++;
         updateCarousel();
-        setTimeout(checkInfiniteScroll, 500); // Check after transition
     }
     
     function prevSlide() {
-        currentSlide--;
+        if (isTransitioning) return;
+        currentIndex--;
         updateCarousel();
-        setTimeout(checkInfiniteScroll, 500); // Check after transition
     }
     
-    // Button event listeners
+    // Event listeners
     nextBtn.addEventListener('click', nextSlide);
     prevBtn.addEventListener('click', prevSlide);
     
-    // Touch/Mouse drag functionality
-    function handleStart(e) {
-        isDragging = true;
-        track.style.transition = 'none';
-        
-        const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
-        startX = clientX;
-        
-        // Get current transform value
-        const transform = track.style.transform;
-        const matrix = transform.match(/translateX\(([^)]+)\)/);
-        initialTransform = matrix ? parseFloat(matrix[1]) : 0;
-        
-        track.style.cursor = 'grabbing';
+    // Modern drag functionality with smooth UX
+    let dragState = {
+        isDragging: false,
+        startX: 0,
+        currentX: 0,
+        startTime: 0,
+        velocity: 0,
+        lastMoveTime: 0,
+        startTranslate: 0,
+        currentTranslate: 0,
+        hasMoved: false
+    };
+    
+    function getTranslateX() {
+        const slidesPerView = getSlidesPerView();
+        const slideWidth = 100 / slidesPerView;
+        return -currentIndex * slideWidth;
     }
     
-    function handleMove(e) {
-        if (!isDragging) return;
+    function setTranslate(value, transition = true) {
+        track.style.transition = transition ? 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
+        track.style.transform = `translateX(${value}%)`;
+    }
+    
+    function handleDragStart(e) {
+        if (isTransitioning) return;
+        
+        const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+        
+        dragState = {
+            isDragging: true,
+            startX: clientX,
+            currentX: clientX,
+            startTime: Date.now(),
+            velocity: 0,
+            lastMoveTime: Date.now(),
+            startTranslate: getTranslateX(),
+            currentTranslate: getTranslateX(),
+            hasMoved: false
+        };
+        
+        track.style.cursor = 'grabbing';
+        setTranslate(dragState.startTranslate, false);
+    }
+    
+    function handleDragMove(e) {
+        if (!dragState.isDragging) return;
         
         e.preventDefault();
         const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
-        currentX = clientX - startX;
+        const currentTime = Date.now();
         
-        const newTransform = initialTransform + currentX;
-        track.style.transform = `translateX(${newTransform}px)`;
-    }
-    
-    function handleEnd() {
-        if (!isDragging) return;
+        // Calculate drag distance and velocity
+        const dragDistance = clientX - dragState.startX;
+        const timeDiff = currentTime - dragState.lastMoveTime;
         
-        isDragging = false;
-        track.style.transition = 'transform 0.5s ease';
-        track.style.cursor = 'grab';
-        
-        // Determine direction and distance
-        if (Math.abs(currentX) > dragThreshold) {
-            if (currentX > 0) {
-                // Dragged right (previous slide)
-                prevSlide();
-            } else {
-                // Dragged left (next slide)
-                nextSlide();
-            }
-        } else {
-            // Snap back to current position
-            updateCarousel();
+        // Mark that user has moved (threshold: 5px to avoid accidental movements)
+        if (Math.abs(dragDistance) > 5) {
+            dragState.hasMoved = true;
         }
         
-        currentX = 0;
+        if (timeDiff > 0) {
+            dragState.velocity = (clientX - dragState.currentX) / timeDiff;
+        }
+        
+        dragState.currentX = clientX;
+        dragState.lastMoveTime = currentTime;
+        
+        // Convert pixels to percentage for smooth dragging
+        const containerWidth = track.parentElement.offsetWidth;
+        const dragPercent = (dragDistance / containerWidth) * 100;
+        
+        dragState.currentTranslate = dragState.startTranslate + dragPercent;
+        setTranslate(dragState.currentTranslate, false);
+    }
+    
+    function handleDragEnd() {
+        if (!dragState.isDragging) return;
+        
+        const hasMoved = dragState.hasMoved;
+        dragState.isDragging = false;
+        track.style.cursor = 'grab';
+        
+        // If user moved during drag, temporarily block clicks on images
+        if (hasMoved) {
+            blockImageClicks();
+        }
+        
+        const dragDistance = dragState.currentX - dragState.startX;
+        const dragDuration = Date.now() - dragState.startTime;
+        const containerWidth = track.parentElement.offsetWidth;
+        const slidesPerView = getSlidesPerView();
+        
+        // Calculate how many slides to move based on drag distance
+        const slideWidth = containerWidth / slidesPerView;
+        const rawSlidesMoved = Math.abs(dragDistance) / slideWidth;
+        
+        // Determine number of slides to change
+        let slidesToMove = 0;
+        const velocityThreshold = 0.5;
+        const minDistanceThreshold = slideWidth * 0.3; // 30% of slide width minimum
+        
+        if (Math.abs(dragDistance) < minDistanceThreshold && Math.abs(dragState.velocity) < velocityThreshold) {
+            // Too small movement - snap back to current slide
+            slidesToMove = 0;
+        } else if (Math.abs(dragState.velocity) > velocityThreshold) {
+            // Fast swipe - move at least 1 slide, but respect distance if greater
+            slidesToMove = Math.max(1, Math.round(rawSlidesMoved));
+        } else {
+            // Normal drag - round to nearest slide based on distance
+            slidesToMove = Math.round(rawSlidesMoved);
+        }
+        
+        // Apply the movement
+        if (slidesToMove > 0) {
+            const direction = dragDistance > 0 ? -1 : 1; // Right drag = prev slides, Left drag = next slides
+            
+            if (direction > 0) {
+                // Move forward (next slides)
+                for (let i = 0; i < slidesToMove; i++) {
+                    currentIndex++;
+                }
+            } else {
+                // Move backward (prev slides)
+                for (let i = 0; i < slidesToMove; i++) {
+                    currentIndex--;
+                }
+            }
+            updateCarousel();
+        } else {
+            // Snap back to current slide
+            updateCarousel();
+        }
+    }
+    
+    // Block clicks on images temporarily after drag
+    function blockImageClicks() {
+        window.carouselClicksBlocked = true;
+        setTimeout(() => {
+            window.carouselClicksBlocked = false;
+        }, 100); // Block for 100ms to prevent accidental lightbox opening
     }
     
     // Mouse events
-    track.addEventListener('mousedown', handleStart);
-    document.addEventListener('mousemove', handleMove);
-    document.addEventListener('mouseup', handleEnd);
+    track.addEventListener('mousedown', handleDragStart);
+    document.addEventListener('mousemove', handleDragMove);
+    document.addEventListener('mouseup', handleDragEnd);
     
-    // Touch events
-    track.addEventListener('touchstart', handleStart, { passive: false });
-    track.addEventListener('touchmove', handleMove, { passive: false });
-    track.addEventListener('touchend', handleEnd);
+    // Touch events (passive for better performance)
+    track.addEventListener('touchstart', handleDragStart, { passive: false });
+    track.addEventListener('touchmove', handleDragMove, { passive: false });
+    track.addEventListener('touchend', handleDragEnd, { passive: true });
     
-    // Prevent default drag behavior on images
-    track.addEventListener('dragstart', (e) => e.preventDefault());
+    // Prevent image dragging
+    track.addEventListener('dragstart', e => e.preventDefault());
     
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-            prevSlide();
-        } else if (e.key === 'ArrowRight') {
-            nextSlide();
-        }
+    // Auto-slide
+    let autoSlideInterval = setInterval(nextSlide, 5000);
+    
+    // Pause auto-slide on hover
+    track.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+    track.addEventListener('mouseleave', () => {
+        autoSlideInterval = setInterval(nextSlide, 5000);
     });
     
-    // Window resize handler
+    // Handle resize
     function handleResize() {
-        updateCarousel();
+        updateCarousel(true);
     }
     
     window.addEventListener('resize', debounce(handleResize, 250));
     
-    // Initialize carousel at the correct starting position
+    // Initialize
     updateCarousel(true);
-    console.log('✅ Infinite carousel initialized successfully!');
 }
 
 // Lightbox functionality
@@ -758,44 +583,645 @@ function initLightbox() {
     const lightboxOverlay = document.getElementById('lightbox-overlay');
     const triggers = document.querySelectorAll('.lightbox-trigger');
     
-    if (!lightbox || !lightboxImage || !lightboxClose || !lightboxOverlay || triggers.length === 0) {
-        console.log('❌ Lightbox elements missing');
-        return;
-    }
+    if (!lightbox) return;
     
-    // Open lightbox
     function openLightbox(imageSrc, imageAlt) {
         lightboxImage.src = imageSrc;
-        lightboxImage.alt = imageAlt;
+        lightboxImage.alt = imageAlt || '';
         lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden';
     }
     
-    // Close lightbox
     function closeLightbox() {
         lightbox.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scrolling
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            lightboxImage.src = '';
+        }, 300);
     }
     
-    // Add click listeners to all trigger images
+    // Event listeners
     triggers.forEach(trigger => {
-        trigger.addEventListener('click', function() {
-            openLightbox(this.src, this.alt);
+        trigger.addEventListener('click', (e) => {
+            // Check if clicks are blocked (after drag operation)
+            if (window.carouselClicksBlocked) {
+                e.preventDefault();
+                return;
+            }
+            
+            e.preventDefault();
+            const img = trigger.tagName === 'IMG' ? trigger : trigger.querySelector('img');
+            if (img) {
+                openLightbox(img.src, img.alt);
+            }
         });
     });
     
-    // Close lightbox events
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightboxOverlay.addEventListener('click', closeLightbox);
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
     
-    // Close with Escape key
-    document.addEventListener('keydown', function(e) {
+    if (lightboxOverlay) {
+        lightboxOverlay.addEventListener('click', closeLightbox);
+    }
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && lightbox.classList.contains('active')) {
             closeLightbox();
         }
     });
-    
-    console.log('✅ Lightbox initialized successfully!');
 }
+
+// Hero carousel functionality
+function initHeroCarousel() {
+    const track = document.querySelector('.hero-carousel-track');
+    const slides = document.querySelectorAll('.hero-carousel-slide');
+    const carousel = document.querySelector('.hero-carousel');
+    if (!track || slides.length === 0) return;
+    
+    const slideCount = slides.length;
+    let offset = 0;
+    let paused = false;
+    const speed = 0.7; // px per frame
+    
+    function isHorizontalMode() {
+        return window.innerWidth <= 992;
+    }
+    
+    function loop() {
+        if (!paused) {
+            if (isHorizontalMode()) {
+                // Horizontal scrolling for mobile/tablet
+                const slideWidth = slides[0].offsetWidth + 20; // width + margin
+                const totalWidth = slideWidth * slideCount;
+                const containerWidth = carousel.offsetWidth;
+                
+                offset += speed;
+                if (offset >= totalWidth - containerWidth) {
+                    offset = 0;
+                }
+                track.style.transition = 'none';
+                track.style.transform = `translateX(-${offset}px)`;
+            } else {
+                // Vertical scrolling for desktop
+                const visibleSlides = 3;
+                const slideHeight = slides[0].offsetHeight;
+                const totalHeight = slideHeight * slideCount;
+                
+                offset += speed;
+                if (offset >= totalHeight - slideHeight * visibleSlides) {
+                    offset = 0;
+                }
+                track.style.transition = 'none';
+                track.style.transform = `translateY(-${offset}px)`;
+            }
+        }
+        requestAnimationFrame(loop);
+    }
+    
+    function handleResize() {
+        // Reset offset when switching modes
+        offset = 0;
+        track.style.transform = isHorizontalMode() ? 'translateX(0)' : 'translateY(0)';
+    }
+    
+    window.addEventListener('resize', debounce(handleResize, 250));
+    
+    requestAnimationFrame(loop);
+    
+    if (carousel) {
+        carousel.addEventListener('mouseenter', () => { paused = true; });
+        carousel.addEventListener('mouseleave', () => { paused = false; });
+        
+        // Add touch/drag support for horizontal mode
+        let isDragging = false;
+        let startX = 0;
+        let currentX = 0;
+        let initialOffset = 0;
+        
+        function handleTouchStart(e) {
+            if (!isHorizontalMode()) return;
+            
+            isDragging = true;
+            paused = true;
+            startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+            initialOffset = offset;
+            
+            carousel.style.cursor = 'grabbing';
+        }
+        
+        function handleTouchMove(e) {
+            if (!isDragging || !isHorizontalMode()) return;
+            
+            e.preventDefault();
+            currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+            const deltaX = currentX - startX;
+            
+            // Update offset based on drag
+            const newOffset = Math.max(0, initialOffset - deltaX);
+            const slideWidth = slides[0].offsetWidth + 20;
+            const totalWidth = slideWidth * slideCount;
+            const containerWidth = carousel.offsetWidth;
+            const maxOffset = Math.max(0, totalWidth - containerWidth);
+            
+            offset = Math.min(newOffset, maxOffset);
+            track.style.transform = `translateX(-${offset}px)`;
+        }
+        
+        function handleTouchEnd() {
+            if (!isDragging || !isHorizontalMode()) return;
+            
+            isDragging = false;
+            paused = false;
+            carousel.style.cursor = 'grab';
+        }
+        
+        // Mouse events
+        carousel.addEventListener('mousedown', handleTouchStart);
+        document.addEventListener('mousemove', handleTouchMove);
+        document.addEventListener('mouseup', handleTouchEnd);
+        
+        // Touch events
+        carousel.addEventListener('touchstart', handleTouchStart, { passive: false });
+        carousel.addEventListener('touchmove', handleTouchMove, { passive: false });
+        carousel.addEventListener('touchend', handleTouchEnd);
+        
+        // Prevent image dragging
+        carousel.addEventListener('dragstart', e => e.preventDefault());
+    }
+}
+
+function openFullscreenImage(src) {
+    let overlay = document.getElementById('hero-carousel-fullscreen');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'hero-carousel-fullscreen';
+        overlay.style.position = 'fixed';
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
+        overlay.style.background = 'rgba(0,0,0,0.85)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = 9999;
+        overlay.style.cursor = 'zoom-out';
+        overlay.innerHTML = '<img style="max-width:90vw;max-height:90vh;border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.25);transition:transform .3s;" />';
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) overlay.remove();
+        });
+        document.body.appendChild(overlay);
+    }
+    const img = overlay.querySelector('img');
+    img.src = src;
+    overlay.style.display = 'flex';
+    setTimeout(() => { overlay.style.opacity = 1; }, 10);
+    img.onclick = (e) => { e.stopPropagation(); overlay.remove(); };
+}
+
+// Resource tabs functionality
+function initResourceTabs() {
+    const resourceTabs = document.querySelectorAll('.resource-item');
+    const resourceImage = document.getElementById('resource-image');
+    
+    if (resourceTabs.length > 0 && resourceImage) {
+        resourceTabs.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                // Don't switch tabs if clicking on the button
+                if (e.target.classList.contains('resource-btn')) {
+                    return;
+                }
+                
+                // Remove active class from all tabs
+                resourceTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Change image with fade effect
+                const newImageSrc = this.getAttribute('data-image');
+                if (newImageSrc) {
+                    resourceImage.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        resourceImage.src = newImageSrc;
+                        resourceImage.style.opacity = '1';
+                    }, 150);
+                }
+            });
+        });
+        
+        // Add smooth scrolling for resource buttons
+        const resourceBtns = document.querySelectorAll('.resource-btn');
+        resourceBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 80; // Account for fixed navbar
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        console.log('✅ Resource tabs initialized successfully!');
+    } else {
+        console.log('❌ Resource tabs elements missing');
+    }
+}
+
+// Анимация статистических столбцов
+function initStatsAnimation() {
+    const statNumbers = document.querySelectorAll('.stat-number, .inline-stat-number');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const finalValue = parseInt(element.textContent);
+                animateNumber(element, 0, finalValue, 2000);
+                observer.unobserve(element);
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+    
+    statNumbers.forEach(el => {
+        observer.observe(el);
+    });
+    
+    function animateNumber(element, start, end, duration) {
+        const startTime = performance.now();
+        const isNegative = end < 0;
+        const absoluteEnd = Math.abs(end);
+        
+        function updateNumber(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(start + (absoluteEnd - start) * easeOut);
+            
+            element.textContent = isNegative ? `-${current}%` : 
+                                 element.textContent.includes('%') ? `${current}%` : current;
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateNumber);
+            }
+        }
+        
+        requestAnimationFrame(updateNumber);
+    }
+}
+
+// Tabs functionality
+function initTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    if (tabButtons.length === 0 || tabContents.length === 0) {
+        console.log('❌ Tab elements not found');
+        return;
+    }
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // Remove active class from all buttons
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Remove active class from all content
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Show corresponding content immediately
+            const targetContent = document.querySelector(`[data-content="${targetTab}"]`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+    
+    console.log('✅ Tabs initialized successfully!');
+}
+
+// Promo code form handler
+function initPromoCodeForm() {
+    console.log('🔧 === FORM INITIALIZATION DEBUG ===');
+    
+    const form = document.querySelector('.download-form');
+    const emailInput = document.querySelector('.download-input');
+    const submitBtn = document.querySelector('.download-btn');
+    const checkboxInput = document.querySelector('.download-agreement input[type="checkbox"]');
+    
+    console.log('📋 Form elements found:', {
+        form: !!form,
+        emailInput: !!emailInput,
+        submitBtn: !!submitBtn,
+        checkboxInput: !!checkboxInput
+    });
+    
+    if (!form || !emailInput || !submitBtn) {
+        console.error('❌ Critical form elements not found!');
+        console.error('Missing elements:', {
+            form: !form ? 'MISSING' : 'OK',
+            emailInput: !emailInput ? 'MISSING' : 'OK',
+            submitBtn: !submitBtn ? 'MISSING' : 'OK'
+        });
+        return;
+    }
+    
+
+    
+    // Alternative form handler - manual submission
+    async function handleFormSubmission(e) {
+        console.log('🔧 === FORM SUBMISSION DEBUG START ===');
+        if (e) e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        const isAgreed = checkboxInput ? checkboxInput.checked : true;
+        
+        console.log('📝 Form data:', {
+            email: email,
+            isAgreed: isAgreed,
+            emailValid: isValidEmail(email)
+        });
+        
+        // Validation
+        if (!email) {
+            console.log('❌ Validation failed: empty email');
+            showMessage('Пожалуйста, введите ваш email', 'error');
+            return;
+        }
+        
+        if (!isValidEmail(email)) {
+            console.log('❌ Validation failed: invalid email format');
+            showMessage('Пожалуйста, введите корректный email', 'error');
+            return;
+        }
+        
+        if (!isAgreed) {
+            console.log('❌ Validation failed: agreement not checked');
+            showMessage('Пожалуйста, согласитесь с политикой конфиденциальности', 'error');
+            return;
+        }
+        
+        console.log('✅ All validations passed');
+        
+        // Show loading state
+        const originalText = submitBtn.textContent;
+        console.log('🔄 Setting loading state, original text:', originalText);
+        submitBtn.textContent = 'Отправляем...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Generate unique promo code
+            const promoCode = generatePromoCode();
+            console.log('🎫 Promo code generated:', promoCode);
+            
+            // Send email (auto-detects EmailJS vs PHP)
+            console.log('📧 Calling sendPromoCodeEmail...');
+            const result = await sendPromoCodeEmail(email, promoCode);
+            console.log('📧 sendPromoCodeEmail completed:', result);
+            console.log('🔧 === EMAIL SENDING DEBUG END ===');
+            
+            // Success
+            console.log('✅ Email sent successfully, showing success message');
+            showMessage('✅ Промокод отправлен на ваш email! Проверьте почту.', 'success');
+            emailInput.value = '';
+            
+        } catch (error) {
+            console.log('🔧 === FORM ERROR HANDLING ===');
+            console.error('❌ Form submission error:', error);
+            console.error('❌ Error details:', {
+                name: error.name,
+                message: error.message,
+                stack: error.stack
+            });
+            console.log('🔧 === EMAIL SENDING ERROR DEBUG END ===');
+            showMessage('❌ Произошла ошибка. Попробуйте еще раз.', 'error');
+        } finally {
+            // Restore button state
+            console.log('🔄 Restoring button state to:', originalText);
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            console.log('🔧 === FORM SUBMISSION DEBUG END ===');
+        }
+    }
+    
+    form.addEventListener('submit', handleFormSubmission);
+    
+    // Also add click handler as backup
+    submitBtn.addEventListener('click', async function(e) {
+        console.log('🔧 === BACKUP CLICK HANDLER ===');
+        
+        // Check if HTML5 validation is blocking
+        const isFormValid = form.checkValidity();
+        console.log('📋 Form validity:', isFormValid);
+        
+        if (!isFormValid) {
+            console.log('❌ HTML5 validation failed, showing validation messages');
+            form.reportValidity();
+            return;
+        }
+        
+        // If form is valid but submit didn't fire, handle manually
+        setTimeout(() => {
+            console.log('⏰ Checking if submit event fired...');
+            // If we reach here, submit likely didn't fire, so handle manually
+            e.preventDefault();
+            handleFormSubmission(e);
+        }, 100);
+        
+        console.log('🔧 === BACKUP CLICK HANDLER END ===');
+    });
+    
+
+    
+    console.log('✅ Promo code form initialized successfully!');
+    console.log('🔧 === FORM INITIALIZATION DEBUG END ===');
+}
+
+// Email validation
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Generate unique promo code
+function generatePromoCode() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const prefix = 'AI3FREE';
+    let code = '';
+    for (let i = 0; i < 6; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return prefix + code;
+}
+
+// Send promo code email - Auto-detect environment
+async function sendPromoCodeEmail(email, promoCode) {
+    console.log('🔧 === EMAIL SENDING DEBUG START ===');
+    console.log('📧 Input email:', email);
+    console.log('🎫 Generated promo code:', promoCode);
+    
+    // Detect if running locally (file://) or on web server
+    const isLocalFile = window.location.protocol === 'file:';
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const useEmailJS = isLocalFile || (isLocalhost && typeof emailjs !== 'undefined');
+    
+    console.log('🌍 Environment detection:', {
+        protocol: window.location.protocol,
+        hostname: window.location.hostname,
+        isLocalFile: isLocalFile,
+        isLocalhost: isLocalhost,
+        emailJSAvailable: typeof emailjs !== 'undefined',
+        useEmailJS: useEmailJS
+    });
+    
+    if (useEmailJS) {
+        return await sendViaEmailJS(email, promoCode);
+    } else {
+        return await sendViaPHP(email, promoCode);
+    }
+}
+
+// EmailJS fallback for local development
+async function sendViaEmailJS(email, promoCode) {
+    console.log('📧 Using EmailJS for email sending...');
+    
+    if (typeof emailjs === 'undefined') {
+        throw new Error('EmailJS not available for local development');
+    }
+    
+    const emailData = {
+        email: email,
+        passcode: promoCode,
+        time: new Date(Date.now() + 30*24*60*60*1000).toLocaleString('ru-RU', {
+            year: 'numeric',
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        })
+    };
+    
+    console.log('📨 EmailJS data prepared:', emailData);
+    
+    try {
+        const result = await emailjs.send(
+            'service_wmfwg7g',
+            'template_m4t998s',
+            emailData
+        );
+        
+        console.log('✅ Email sent successfully via EmailJS!');
+        return result;
+        
+    } catch (error) {
+        console.error('❌ EmailJS error:', error);
+        throw error;
+    }
+}
+
+// PHP backend for production
+async function sendViaPHP(email, promoCode) {
+    console.log('🐘 Using PHP backend for email sending...');
+    
+    const emailData = {
+        email: email,
+        promo_code: promoCode
+    };
+    
+    console.log('📨 PHP data prepared:', emailData);
+    
+    try {
+        const response = await fetch('/send-promocode.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(emailData)
+        });
+        
+        console.log('📊 Response status:', response.status);
+        
+        const result = await response.json();
+        console.log('📊 Response data:', result);
+        
+        if (!response.ok) {
+            throw new Error(result.error || `HTTP error! status: ${response.status}`);
+        }
+        
+        if (result.success) {
+            console.log('✅ Email sent successfully via PHP!');
+            return result;
+        } else {
+            throw new Error(result.error || 'Unknown error occurred');
+        }
+        
+    } catch (error) {
+        console.error('❌ PHP backend error:', error);
+        throw error;
+    }
+}
+
+// Show message to user
+function showMessage(text, type = 'info') {
+    // Remove existing messages
+    const existingMessage = document.querySelector('.form-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    // Create new message
+    const message = document.createElement('div');
+    message.className = `form-message form-message-${type}`;
+    message.textContent = text;
+    
+    // Insert after download agreement
+    const agreement = document.querySelector('.download-agreement');
+    if (agreement && agreement.parentNode) {
+        agreement.parentNode.insertBefore(message, agreement.nextSibling);
+        
+        // Auto-remove after 6 seconds
+        setTimeout(() => {
+            if (message.parentNode) {
+                message.remove();
+            }
+        }, 6000);
+    }
+}
+
+// Check EmailJS initialization on page load
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔧 === EMAILJS INITIALIZATION CHECK ===');
+    
+    setTimeout(() => {
+        if (typeof emailjs !== 'undefined') {
+            console.log('✅ EmailJS library loaded successfully');
+            console.log('📧 EmailJS version:', emailjs.version || 'unknown');
+        } else {
+            console.error('❌ EmailJS library not found!');
+            console.error('Check if EmailJS script is loaded properly');
+        }
+        console.log('🔧 === EMAILJS INITIALIZATION CHECK END ===');
+    }, 1000);
+});
 
 console.log('Aitracking Landing Page loaded successfully! 🚀'); 

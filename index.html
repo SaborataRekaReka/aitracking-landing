@@ -10,7 +10,8 @@
     <title>Aitracking - Сделайте дизайн предсказуемым</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/favicon.svg">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,10 +36,17 @@
                 <!-- Navigation -->
                 <ul class="nav-menu">
                     <li><a href="#" class="nav-link">О сервисе</a></li>
-                    <li><a href="#" class="nav-link">Тарифы</a></li>
+                    <li><a href="#pricing" class="nav-link">Тарифы</a></li>
                     <li><a href="#" class="nav-link">Блог</a></li>
                     <li><a href="#" class="nav-link">Контакты</a></li>
                 </ul>
+                
+                <!-- Language switcher -->
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="ru">RU</button>
+                    <span class="lang-divider">|</span>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
                 
                 <!-- Auth buttons -->
                 <div class="nav-auth">
@@ -58,12 +66,14 @@
 
     <!-- Main content -->
     <main class="main">
+
+        
         <div class="container">
             <div class="hero-content">
                 <!-- Left content -->
                 <div class="hero-left">
                     <!-- AI Badge -->
-                    <div class="ai-badge">
+                    <div class="ai-badge" id="ai-badge">
                         <img src="assets/images/stars.svg" alt="Stars" width="12" height="12">
                         <span>92% точность AI</span>
                     </div>
@@ -72,8 +82,16 @@
                     <h1 class="hero-title">
                         <!-- Heatmap gradient background -->
                         <div class="hero-heatmap-gradient" id="hero-heatmap-gradient"></div>
-                        <span class="hero-title-text">Сделайте дизайн<br>
-                        предсказуемым</span>
+                        <span class="hero-title-text">
+                            <span id="title-word-1">Eye-tracking</span> <span id="title-word-2">анализ</span><br>
+                            <span id="title-word-3">дизайна</span>
+                            <div class="inline-toggle-container">
+                                <label class="inline-switch">
+                                    <input type="checkbox" id="heatmap-toggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </span>
                     </h1>
                     
                     <!-- Description -->
@@ -99,24 +117,14 @@
 
                 <!-- Right toggle switches -->
                 <div class="hero-right">
-                    <div class="toggle-switches-container">
-                        <div class="toggle-switch-container">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="heatmap-toggle">
-                                <span class="slider"></span>
-                            </label>
-                            <div class="toggle-label">
-                                Heatmap
-                            </div>
-                        </div>
-                        <div class="toggle-switch-container">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="opacity-toggle">
-                                <span class="slider"></span>
-                            </label>
-                            <div class="toggle-label">
-                                Opacity Map
-                            </div>
+                    <div class="hero-carousel">
+                        <div class="hero-carousel-track">
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
                         </div>
                     </div>
                 </div>
@@ -126,6 +134,7 @@
                 <div class="blob blob-button"></div>
                 <div class="blob blob-toggle"></div>
             </div>
+
         </div>
     </main>
 
@@ -176,126 +185,392 @@
         </div>
     </section>
 
-    <!-- Use Cases Section -->
-    <section class="use-cases">
+    <!-- Tabs Section -->
+    <section class="tabs-section">
         <div class="container">
-            <div class="use-cases-header">
-                <div class="use-cases-left">
-                    <p class="use-cases-subtitle">Как использовать</p>
-                    <h2 class="use-cases-title">Чем полезен eye-tracking</h2>
-                    <p class="use-cases-description">Tool and strategies modern teams need to help their companies grow.</p>
-                </div>
-                <div class="use-cases-right">
-                    <button class="btn btn-primary">Наши тарифы</button>
-                </div>
+            <div class="tabs-header">
+                <h2 class="tabs-title">Чем полезен eye-tracking</h2>
+                <p class="tabs-description">Tool and strategies modern teams need to help their companies grow.</p>
             </div>
             
-            <div class="carousel-container">
-                <button class="carousel-btn carousel-btn-prev" id="carousel-prev">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
+            <div class="tabs-container">
+                <div class="tabs-navigation">
+                    <button class="tab-btn active" data-tab="websites">Веб-сайты</button>
+                    <button class="tab-btn" data-tab="marketplace">Маркетплейсы</button>
+                    <button class="tab-btn" data-tab="advertising">Реклама в интернете</button>
+                    <button class="tab-btn" data-tab="mobile">Мобильные приложения</button>
+                </div>
                 
-                <div class="carousel-wrapper">
-                    <div class="carousel-track" id="carousel-track">
-                        <div class="carousel-slide">
-                            <div class="use-case-card">
-                                <div class="use-case-image">
+                <div class="tabs-content">
+                    <div class="tab-content active" data-content="websites">
+                        <div class="tab-left">
+                            <div class="tab-image">
                                     <img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" 
-                                         onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
                                          alt="Heatmap анализ сайта аптеки ЕАПТЕКА"
                                          class="lightbox-trigger">
                                 </div>
-                                <div class="use-case-content">
-                                    <span class="use-case-category websites">Веб-сайты</span>
-                                    <h3 class="use-case-card-title">Анализ внимания на аптечных сайтах</h3>
-                                    <p class="use-case-card-description">Выявите, какие элементы привлекают внимание покупателей: акции, кнопки корзины или поисковая строка</p>
-                                    <a href="#" class="use-case-link">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </a>
+                        </div>
+                        <div class="tab-right">
+                            <div class="tab-info">
+                                <h3 class="tab-info-title">Анализ внимания на аптечных сайтах</h3>
+                                <p class="tab-info-description">
+                                    Выявите, какие элементы привлекают внимание покупателей: акции, кнопки корзины или поисковая строка
+                                </p>
+                                <ul class="tab-features">
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ внимания к заголовкам</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тепловые карты изображений</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оценка CTA элементов</li>
+                                </ul>
+                                <button class="tab-cta-btn">Попробовать бесплатно</button>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="carousel-slide">
-                            <div class="use-case-card">
-                                <div class="use-case-image">
+                    <div class="tab-content" data-content="marketplace">
+                        <div class="tab-left">
+                            <div class="tab-image">
                                     <img src="assets/images/examples/0196339c-2bd4-4d55-9299-a53395ea7579_gazeplot.png" 
-                                         onerror="this.src='https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
                                          alt="Gazeplot анализ маркетплейса"
                                          class="lightbox-trigger">
                                 </div>
-                                <div class="use-case-content">
-                                    <span class="use-case-category marketplace">Маркетплейсы</span>
-                                    <h3 class="use-case-card-title">Выделяйтесь на маркетплейсах</h3>
-                                    <p class="use-case-card-description">На Ozon, WildBerries и других маркетплейсах продажи зависят от того, насколько ваша карточка привлекательнее конкурентов</p>
-                                    <a href="#" class="use-case-link">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </a>
+                        </div>
+                        <div class="tab-right">
+                            <div class="tab-info">
+                                <h3 class="tab-info-title">Выделяйтесь на маркетплейсах</h3>
+                                <p class="tab-info-description">
+                                    На Ozon, WildBerries и других маркетплейсах продажи зависят от того, насколько ваша карточка привлекательнее конкурентов
+                                </p>
+                                <ul class="tab-features">
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оптимизация карточек товаров</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ конкурентных преимуществ</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тестирование заголовков и описаний</li>
+                                </ul>
+                                <button class="tab-cta-btn">Попробовать бесплатно</button>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="carousel-slide">
-                            <div class="use-case-card">
-                                <div class="use-case-image">
+                    <div class="tab-content" data-content="advertising">
+                        <div class="tab-left">
+                            <div class="tab-image">
                                     <img src="assets/images/examples/5e85b2e2-db4c-43c1-afe7-764745ea55ca_opacity.png" 
-                                         onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
                                          alt="Opacity анализ рекламы"
                                          class="lightbox-trigger">
                                 </div>
-                                <div class="use-case-content">
-                                    <span class="use-case-category advertising">Реклама в интернете</span>
-                                    <h3 class="use-case-card-title">Увеличьте CTR рекламы</h3>
-                                    <p class="use-case-card-description">Платите меньше за клик и получайте больше лидов за счет улучшения заметности и CTR вашей рекламы в интернете.</p>
-                                    <a href="#" class="use-case-link">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </a>
+                        </div>
+                        <div class="tab-right">
+                            <div class="tab-info">
+                                <h3 class="tab-info-title">Увеличьте CTR рекламы</h3>
+                                <p class="tab-info-description">
+                                    Платите меньше за клик и получайте больше лидов за счет улучшения заметности и CTR вашей рекламы в интернете.
+                                </p>
+                                <ul class="tab-features">
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оптимизация баннеров и креативов</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ эффективности CTA</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тестирование рекламных макетов</li>
+                                </ul>
+                                <button class="tab-cta-btn">Попробовать бесплатно</button>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="carousel-slide">
-                            <div class="use-case-card">
-                                <div class="use-case-image">
+                    <div class="tab-content" data-content="mobile">
+                        <div class="tab-left">
+                            <div class="tab-image">
                                     <img src="assets/images/examples/image-13_heatmap.png" 
-                                         onerror="this.src='https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop&crop=entropy&cs=tinysrgb'"
                                          alt="Heatmap анализ мобильного приложения"
                                          class="lightbox-trigger">
-                                </div>
-                                <div class="use-case-content">
-                                    <span class="use-case-category mobile">Мобильные приложения</span>
-                                    <h3 class="use-case-card-title">Оптимизируйте UX приложений</h3>
-                                    <p class="use-case-card-description">Понимайте, как пользователи взаимодействуют с интерфейсом мобильных приложений и улучшайте пользовательский опыт</p>
-                                    <a href="#" class="use-case-link">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </a>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-right">
+                            <div class="tab-info">
+                                <h3 class="tab-info-title">Оптимизируйте UX приложений</h3>
+                                <p class="tab-info-description">
+                                    Понимайте, как пользователи взаимодействуют с интерфейсом мобильных приложений и улучшайте пользовательский опыт
+                                </p>
+                                <ul class="tab-features">
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> UX анализ интерфейсов</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оптимизация навигации</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тестирование пользовательских сценариев</li>
+                                </ul>
+                                <button class="tab-cta-btn">Попробовать бесплатно</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Technology Section -->
+    <section class="technology">
+        <div class="container">
+            <div class="technology-content">
+                <div class="technology-left">
+                    <h2 class="technology-title">
+                        О технологии <span class="technology-eyetracking">
+                            eye-tracking
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="white"/>
+                            </svg>
+                        </span>
+                    </h2>
+                    <p class="technology-description">
+                        Нейронная сеть моделирует поведение 40 пар глаз и записывает результаты в простой отчет. В сеть заложены 30 лет исследований, тестирование 4000 изображений
+                    </p>
+                    
+                    <div class="technology-buttons">
+                                                    <button class="btn btn-outline">
+                                <img src="assets/images/play-circle.svg" alt="Play" width="16" height="16">
+                                Смотреть видео
+                            </button>
+                        <button class="btn-text">Частые вопросы</button>
+                    </div>
+                    
+                    <div class="technology-inline-stats">
+                        <div class="inline-stat-item">
+                            <div class="inline-stat-number">92%</div>
+                            <p class="inline-stat-description">Точность исследования</p>
+                        </div>
+                        <div class="stats-divider"></div>
+                        <div class="inline-stat-item">
+                            <div class="inline-stat-number">-80%</div>
+                            <p class="inline-stat-description">на 80% дешевле обычного исследования</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="technology-right">
+                    <div class="technology-image">
+                        <div class="technology-shape">
+                            <img src="assets/images/shape.svg" alt="Background shape" class="shape-bg">
+                        </div>
+                        <div class="technology-woman">
+                            <img src="assets/images/woman_1.png" alt="Женщина в VR очках" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&h=600&fit=crop&crop=face&cs=tinysrgb'" 
+                                 class="woman-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients">
+        <div class="container">
+            <p class="clients-subtitle">технологии доверяют 30k+ клиентов по всему миру</p>
+            <div class="clients-carousel">
+                <div class="clients-track">
+                    <div class="client-logo">
+                        <img src="assets/images/logos/id02vXLS_6_1749896423793 1.svg" alt="Client logo">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/Nielsen_2021 1.svg" alt="Nielsen">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/Ogilvy_logo 1.svg" alt="Ogilvy">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/Grey-Group-Logo 1.svg" alt="Grey Group">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/SimilarWeb_logo 1.svg" alt="SimilarWeb">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/Walmart_logo 1.svg" alt="Walmart">
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="client-logo">
+                        <img src="assets/images/logos/id02vXLS_6_1749896423793 1.svg" alt="Client logo">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/Nielsen_2021 1.svg" alt="Nielsen">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/Ogilvy_logo 1.svg" alt="Ogilvy">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/Grey-Group-Logo 1.svg" alt="Grey Group">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/SimilarWeb_logo 1.svg" alt="SimilarWeb">
+                    </div>
+                    <div class="client-logo">
+                        <img src="assets/images/logos/Walmart_logo 1.svg" alt="Walmart">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Statistics Section -->
+    <section class="cta-stats">
+        <div class="container">
+            <div class="cta-stats-container">
+                <div class="cta-stats-header">
+                    <h2 class="cta-stats-title">Рост конверсии с eye-tracking</h2>
+                    <p class="cta-stats-description">Сравнение эффективности разных подходов к оптимизации</p>
+                </div>
                 
-                <button class="carousel-btn carousel-btn-next" id="carousel-next">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
+                <div class="cta-stats-content">
+                    <div class="cta-stats-left">
+                        <div class="stats-chart">
+                            <div class="chart-label">
+                                <span class="label-text">Количество конверсий</span>
+                                <img src="assets/images/asterisk.svg" alt="*" class="label-icon" />
+                            </div>
+                            <div class="stat-bar">
+                                <div class="stat-value">200</div>
+                                <div class="stat-column optimized">
+                                    <div class="stat-label">С Eye-Tracking</div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-bar">
+                                <div class="stat-value">80</div>
+                                <div class="stat-column improved">
+                                    <div class="stat-label">После A/B теста</div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-bar">
+                                <div class="stat-value">50</div>
+                                <div class="stat-column baseline">
+                                    <div class="stat-label">Без тестирования</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cta-stats-right">
+                        <div class="stats-insight">
+                            <h3 class="insight-title">
+                                Данные исследований
+                            </h3>
+                            <p class="insight-description">
+                                Самый большой рост конверсии после применения рекомендаций Eye-Tracking исследований.
+                            </p>
+                            <div class="insight-source">
+                                * На основе статьи Neil Patel – 7 Marketing Lessons from Eye-Tracking Studies, 2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Harness Section (Puzzle Block) -->
+    <section class="data-harness">
+        <div class="container">
+            <div class="data-harness-content">
+                <div class="data-harness-left">
+                    <h2 class="data-harness-title">Откройте скрытый потенциал</h2>
+                    <button class="btn btn-primary">Заказать демонстрацию</button>
+                </div>
+                <div class="data-harness-center">
+                    <div class="data-harness-description-group">
+                        <p class="data-harness-description">
+                            Eye-tracking — необходимый элемент в UX-исследованиях
+                        </p>
+                        <p class="data-harness-description-secondary">
+                            Выявляйте невидимые барьеры и точки роста интерфейса, дополняя стандартные методы (аналитику, юзабилити-тесты, A/B-эксперименты) данными о внимании пользователей.
+                        </p>
+                    </div>
+                    <div class="data-harness-legend vertical">
+                        <div class="legend-item legend-unconstrained">
+                            <span class="legend-icon"></span>
+                            <span>Внимание</span>
+                        </div>
+                        <div class="legend-item legend-constrained">
+                            <span class="legend-icon"></span>
+                            <span>Поведение</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-harness-right">
+                    <img src="assets/images/puzzles.svg" alt="Пазлы" class="data-harness-puzzle-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Resources Section -->
+    <section class="resources">
+        <div class="container">
+            <div class="resources-header">
+                <h2 class="resources-title">
+                    Resources You May <br>
+                    Find <span class="resources-interesting">
+                        Interesting
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="white"/>
+                        </svg>
+                    </span>
+                </h2>
+                <p class="resources-description">
+                    Discover a curated selection of resources to<br>
+                    boost your knowledge and keep you ahead in<br>
+                    your field
+                </p>
+            </div>
+            
+            <div class="resources-content">
+                <div class="resources-left">
+                    <div class="resources-image">
+                        <img id="resource-image" src="assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f502.jpg" alt="Интерфейс ВКонтакте" />
+                    </div>
+                </div>
+                
+                <div class="resources-right">
+                    <div class="resources-list">
+                        <div class="resource-item active" data-tab="pricing" data-image="assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f502.jpg">
+                            <div class="resource-number">01</div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Pricing and packaging</h3>
+                                <p class="resource-description">Select from our flexible pricing and tailored packages</p>
+                                <a href="#pricing" class="resource-btn">Попробовать</a>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item" data-tab="billing" data-image="assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f5022.jpg">
+                            <div class="resource-number">02</div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Billing and payments</h3>
+                                <p class="resource-description">Simple and secure billing and payment management</p>
+                                <a href="#pricing" class="resource-btn">Попробовать</a>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item" data-tab="trends" data-image="assets/images/check.svg">
+                            <div class="resource-number">03</div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">Industry trends</h3>
+                                <p class="resource-description">Stay updated with the latest industry trends and insights</p>
+                                <a href="#pricing" class="resource-btn">Попробовать</a>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item" data-tab="report" data-image="assets/images/logo.svg">
+                            <div class="resource-number">04</div>
+                            <div class="resource-content">
+                                <h3 class="resource-title">The SEI Report</h3>
+                                <p class="resource-description">The SEI Report provides key insights to guide your decisions</p>
+                                <a href="#pricing" class="resource-btn">Попробовать</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Pricing Section -->
-    <section class="pricing">
+    <section id="pricing" class="pricing">
         <div class="container">
             <div class="pricing-header">
                 <h2 class="pricing-title">Выберите подходящий план</h2>
@@ -461,6 +736,45 @@
             </div>
         </div>
     </section>
+
+    <!-- Download Checklist Section -->
+    <section class="download-checklist">
+        <div class="container">
+            <div class="download-content">
+                <div class="download-left">
+                    <div class="download-image">
+                        <div class="download-woman">
+                            <img src="assets/images/woman_2.png" alt="Женщина с планшетом" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1494790108755-2616b2e29d02?w=400&h=600&fit=crop&crop=face&cs=tinysrgb'" 
+                                 class="woman-img">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="download-right">
+                    <h2 class="download-title">Получите промокод на 3 бесплатных анализа</h2>
+                    <p class="download-description">
+                        Оставьте свой email и получите промокод на 3 бесплатных AI-анализа дизайна. Попробуйте сервис без риска!
+                    </p>
+                    <form class="download-form">
+                        <div class="download-form-row">
+                            <input type="email" class="download-input" placeholder="Введите ваш email" required>
+                            <button type="submit" class="btn btn-primary download-btn">
+                                Получить на почту
+                            </button>
+                        </div>
+                        <div class="download-agreement">
+                            <label>
+                                <input type="checkbox" required checked>
+                                <span>Я соглашаюсь с <a href="/policy" target="_blank">политикой конфиденциальности</a></span>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
@@ -471,10 +785,14 @@
         </div>
     </div>
 
-    <!-- Opacity Overlay -->
-    <div class="opacity-overlay" id="opacity-overlay"></div>
-
     <!-- JavaScript -->
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your public key
+        emailjs.init("GqcshomnFvqp5Gg8F");
+    </script>
+    
     <script src="assets/js/main.js"></script>
 </body>
 </html>
