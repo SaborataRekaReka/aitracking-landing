@@ -1,0 +1,25 @@
+# Минимальный .htaccess - только основное
+# Используйте если основной .htaccess не работает
+
+# Отключение индексирования директорий
+Options -Indexes
+
+# Защита системных файлов
+<Files ".htaccess">
+    Require all denied
+</Files>
+
+<Files "*.log">
+    Require all denied
+</Files>
+
+<Files "*.sql">
+    Require all denied
+</Files>
+
+# Основные MIME типы
+<IfModule mod_mime.c>
+    AddType text/css .css
+    AddType application/javascript .js
+    AddType text/html .html
+</IfModule> 
