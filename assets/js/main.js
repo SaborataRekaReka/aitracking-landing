@@ -1351,7 +1351,7 @@ function isValidEmail(email) {
 // Generate unique promo code
 function generatePromoCode() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const prefix = 'AI3FREE';
+            const prefix = 'AI1FREE';
     let code = '';
     for (let i = 0; i < 6; i++) {
         code += chars.charAt(Math.floor(Math.random() * chars.length));
