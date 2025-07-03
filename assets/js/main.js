@@ -9,17 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initHeatmapToggle();
     initCarousel();
     initLightbox();
-    initHeroCarousel();
+    // initHeroCarousel(); // Отключено - используется оптимизированная версия
     initResourceTabs();
     initLanguageSwitcher();
     initStatsAnimation();
     initTabs();
     initPromoCodeForm();
-    document.querySelectorAll('.hero-carousel-slide img').forEach(img => {
-        img.addEventListener('click', function(e) {
-            openFullscreenImage(this.src);
-        });
-    });
 });
 
 // Detect current language from page
@@ -28,13 +23,84 @@ let currentLanguage = document.documentElement.lang || 'ru';
 // Language switcher functionality
 function initLanguageSwitcher() {
     const langButtons = document.querySelectorAll('.lang-btn');
+    const currentLang = window.location.pathname.includes('/en/') ? 'en' : 'ru';
     
+    // Desktop language buttons
     langButtons.forEach(button => {
         button.addEventListener('click', function() {
             const lang = this.getAttribute('data-lang');
             switchLanguage(lang);
         });
     });
+
+    // Handle mobile language dropdown
+    const mobileDropdown = document.querySelector('.mobile-lang-dropdown');
+    const mobileCurrentBtn = document.getElementById('mobile-lang-current');
+    const mobileOptions = document.getElementById('mobile-lang-options');
+    const mobileLangOptions = document.querySelectorAll('.mobile-lang-option');
+    
+    if (mobileCurrentBtn && mobileOptions && mobileDropdown) {
+        // Set initial active state
+        mobileLangOptions.forEach(option => {
+            const lang = option.getAttribute('data-lang');
+            if (lang === currentLang) {
+                option.classList.add('active');
+                updateMobileCurrentLang(option);
+            }
+        });
+        
+        // Toggle dropdown
+        mobileCurrentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            mobileDropdown.classList.toggle('open');
+        });
+        
+        // Handle language selection
+        mobileLangOptions.forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const lang = option.getAttribute('data-lang');
+                
+                // Update active state
+                mobileLangOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                
+                // Update current button display
+                updateMobileCurrentLang(option);
+                
+                // Close dropdown
+                mobileDropdown.classList.remove('open');
+                
+                // Switch language
+                switchLanguage(lang);
+            });
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (mobileDropdown && !mobileDropdown.contains(e.target)) {
+                mobileDropdown.classList.remove('open');
+            }
+        });
+    }
+}
+
+// Update mobile current language display
+function updateMobileCurrentLang(selectedOption) {
+    const currentBtn = document.getElementById('mobile-lang-current');
+    const flag = selectedOption.querySelector('.mobile-lang-flag').textContent;
+    const name = selectedOption.querySelector('.mobile-lang-name').textContent;
+    
+    if (currentBtn) {
+        const currentFlag = currentBtn.querySelector('.mobile-lang-flag');
+        const currentName = currentBtn.querySelector('.mobile-lang-name');
+        
+        if (currentFlag) currentFlag.textContent = flag;
+        if (currentName) currentName.textContent = name;
+    }
 }
 
 function switchLanguage(lang) {
@@ -69,12 +135,38 @@ function initNavigation() {
     const navbar = document.querySelector('.header');
     const hamburger = document.getElementById('mobile-menu-btn');
     const navMenu = document.querySelector('.nav-menu');
+    const menuOverlay = document.getElementById('mobile-menu-overlay');
+    let scrollPosition = 0;
+    
+    // Fix z-index issue by moving nav-menu outside of header on mobile
+    if (navMenu && window.innerWidth <= 768) {
+        document.body.appendChild(navMenu);
+        console.log('✅ Nav menu moved to body for proper z-index layering');
+    }
     
     // Mobile menu toggle
-    if (hamburger && navMenu) {
+    if (hamburger && navMenu && menuOverlay) {
         hamburger.addEventListener('click', function() {
+            const isOpening = !navMenu.classList.contains('active');
+            
+            if (isOpening) {
+                // Save current scroll position
+                scrollPosition = window.pageYOffset;
+                // Set body top to negative scroll position to maintain visual position
+                document.body.style.top = `-${scrollPosition}px`;
+            }
+            
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.classList.toggle('nav-menu-open');
+            document.documentElement.classList.toggle('nav-menu-open');
+            
+            if (!isOpening) {
+                // Restore scroll position when closing
+                document.body.style.top = '';
+                window.scrollTo(0, scrollPosition);
+            }
         });
     }
     
@@ -88,8 +180,51 @@ function initNavigation() {
             if (hamburger) {
                 hamburger.classList.remove('active');
             }
+            if (menuOverlay) {
+                menuOverlay.classList.remove('active');
+            }
+            document.body.classList.remove('nav-menu-open');
+            document.documentElement.classList.remove('nav-menu-open');
+            // Restore scroll position
+            document.body.style.top = '';
+            window.scrollTo(0, scrollPosition);
         });
     });
+
+    // Close mobile menu when clicking on mobile auth buttons
+    const mobileAuthButtons = document.querySelectorAll('.btn-mobile-ghost, .btn-mobile-primary');
+    mobileAuthButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (navMenu) {
+                navMenu.classList.remove('active');
+            }
+            if (hamburger) {
+                hamburger.classList.remove('active');
+            }
+            if (menuOverlay) {
+                menuOverlay.classList.remove('active');
+            }
+            document.body.classList.remove('nav-menu-open');
+            document.documentElement.classList.remove('nav-menu-open');
+            // Restore scroll position
+            document.body.style.top = '';
+            window.scrollTo(0, scrollPosition);
+        });
+    });
+
+    // Close mobile menu when clicking on overlay
+    if (menuOverlay) {
+        menuOverlay.addEventListener('click', function() {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.classList.remove('nav-menu-open');
+            document.documentElement.classList.remove('nav-menu-open');
+            // Restore scroll position
+            document.body.style.top = '';
+            window.scrollTo(0, scrollPosition);
+        });
+    }
     
     // Navbar scroll effect
     if (navbar) {
@@ -262,41 +397,192 @@ function debounce(func, wait) {
 // Steps animation
 function initStepsAnimation() {
     const steps = document.querySelectorAll('.step');
+    let isMobile = window.innerWidth <= 768;
     
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateStepsSequentially();
-                observer.disconnect();
-            }
-        });
-    }, { threshold: 0.1 });
-    
-    if (steps.length > 0) {
-        observer.observe(steps[0]);
+    if (isMobile) {
+        initMobileStepsAnimation();
+    } else {
+        initDesktopStepsAnimation();
     }
     
-    function animateStepsSequentially() {
-        const steps = document.querySelectorAll('.step');
-        function animateStep(index) {
-            if (index >= steps.length) return;
-            const step = steps[index];
-            step.classList.add('animate');
+    // Handle resize
+    window.addEventListener('resize', debounce(() => {
+        const isNowMobile = window.innerWidth <= 768;
+        if (isNowMobile !== isMobile) {
+            isMobile = isNowMobile;
+            location.reload(); // Simple solution to handle layout change
+        }
+    }, 300));
+    
+    function initDesktopStepsAnimation() {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStepsSequentially();
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        if (steps.length > 0) {
+            observer.observe(steps[0]);
+        }
+        
+        function animateStepsSequentially() {
+            const steps = document.querySelectorAll('.step');
+            function animateStep(index) {
+                if (index >= steps.length) return;
+                const step = steps[index];
+                step.classList.add('animate');
+                const progressFill = step.querySelector('.step-progress-fill');
+                if (progressFill) {
+                    progressFill.style.width = '100%';
+                    // Ждём окончания transition, затем запускаем следующий шаг
+                    progressFill.addEventListener('transitionend', function handler(e) {
+                        if (e.propertyName === 'width') {
+                            progressFill.removeEventListener('transitionend', handler);
+                            animateStep(index + 1);
+                        }
+                    });
+                } else {
+                    animateStep(index + 1);
+                }
+            }
+            animateStep(0);
+        }
+    }
+    
+    function initMobileStepsAnimation() {
+        const stepsContainer = document.querySelector('.steps-container');
+        if (!stepsContainer) return;
+        
+        // Create mobile indicators
+        const indicatorContainer = document.createElement('div');
+        indicatorContainer.className = 'mobile-step-indicator';
+        
+        const counterContainer = document.createElement('div');
+        counterContainer.className = 'mobile-step-counter';
+        
+        // Insert before steps container
+        stepsContainer.parentNode.insertBefore(counterContainer, stepsContainer);
+        stepsContainer.parentNode.insertBefore(indicatorContainer, stepsContainer);
+        
+        // Create dots
+        steps.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'mobile-step-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => showMobileStep(index));
+            indicatorContainer.appendChild(dot);
+        });
+        
+        let currentStepIndex = 0;
+        let animationInterval;
+        
+        // Initialize steps - hide all except first
+        steps.forEach((step, index) => {
+            step.classList.remove('mobile-active', 'animate');
             const progressFill = step.querySelector('.step-progress-fill');
             if (progressFill) {
-                progressFill.style.width = '100%';
-                // Ждём окончания transition, затем запускаем следующий шаг
-                progressFill.addEventListener('transitionend', function handler(e) {
-                    if (e.propertyName === 'width') {
-                        progressFill.removeEventListener('transitionend', handler);
-                        animateStep(index + 1);
-                    }
-                });
-            } else {
-                animateStep(index + 1);
+                progressFill.style.width = '0%';
             }
+        });
+        
+        // Show first step
+        if (steps.length > 0) {
+            steps[0].classList.add('mobile-active', 'animate');
+            const progressFill = steps[0].querySelector('.step-progress-fill');
+            if (progressFill) {
+                progressFill.style.width = '100%';
+            }
+            updateCounter();
         }
-        animateStep(0);
+        
+        // Observer to start animation when visible
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startMobileStepsAnimation();
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(stepsContainer);
+        
+        function startMobileStepsAnimation() {
+            // Start automatic cycling
+            animationInterval = setInterval(() => {
+                const nextIndex = (currentStepIndex + 1) % steps.length;
+                showMobileStep(nextIndex);
+            }, 4000); // Change every 4 seconds
+        }
+        
+        function showMobileStep(index) {
+            if (index === currentStepIndex) return;
+            
+            // Clear any existing interval
+            if (animationInterval) {
+                clearInterval(animationInterval);
+            }
+            
+            // Hide current step completely
+            steps[currentStepIndex].classList.remove('mobile-active', 'animate');
+            const currentProgressFill = steps[currentStepIndex].querySelector('.step-progress-fill');
+            if (currentProgressFill) {
+                currentProgressFill.style.width = '0%';
+            }
+            
+            // Update dots
+            const dots = document.querySelectorAll('.mobile-step-dot');
+            dots[currentStepIndex].classList.remove('active');
+            dots[index].classList.add('active');
+            
+            // Show new step
+            setTimeout(() => {
+                currentStepIndex = index;
+                const currentStep = steps[currentStepIndex];
+                currentStep.classList.add('mobile-active', 'animate');
+                
+                const progressFill = currentStep.querySelector('.step-progress-fill');
+                if (progressFill) {
+                    progressFill.style.width = '0%';
+                    // Small delay for smooth animation
+                    setTimeout(() => {
+                        progressFill.style.width = '100%';
+                    }, 100);
+                }
+                
+                updateCounter();
+                
+                // Restart automatic cycling after manual interaction
+                setTimeout(() => {
+                    startMobileStepsAnimation();
+                }, 1000);
+            }, 250);
+        }
+        
+        function updateCounter() {
+            const isEnglish = window.location.pathname.includes('/en/');
+            const text = isEnglish 
+                ? `${currentStepIndex + 1} of ${steps.length}`
+                : `${currentStepIndex + 1} из ${steps.length}`;
+            counterContainer.textContent = text;
+        }
+        
+        // Pause animation on user interaction
+        stepsContainer.addEventListener('touchstart', () => {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+            }
+        });
+        
+        // Resume after a delay
+        stepsContainer.addEventListener('touchend', () => {
+            setTimeout(() => {
+                startMobileStepsAnimation();
+            }, 2000);
+        });
     }
 }
 
@@ -603,6 +889,11 @@ function initLightbox() {
     // Event listeners
     triggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
+            // Проверяем, что это не изображение из hero-carousel
+            if (trigger.closest('.hero-carousel')) {
+                return;
+            }
+            
             // Check if clicks are blocked (after drag operation)
             if (window.carouselClicksBlocked) {
                 e.preventDefault();
@@ -610,6 +901,7 @@ function initLightbox() {
             }
             
             e.preventDefault();
+            e.stopPropagation(); // Предотвращаем всплытие
             const img = trigger.tagName === 'IMG' ? trigger : trigger.querySelector('img');
             if (img) {
                 openLightbox(img.src, img.alt);
@@ -750,35 +1042,6 @@ function initHeroCarousel() {
         // Prevent image dragging
         carousel.addEventListener('dragstart', e => e.preventDefault());
     }
-}
-
-function openFullscreenImage(src) {
-    let overlay = document.getElementById('hero-carousel-fullscreen');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.id = 'hero-carousel-fullscreen';
-        overlay.style.position = 'fixed';
-        overlay.style.top = 0;
-        overlay.style.left = 0;
-        overlay.style.width = '100vw';
-        overlay.style.height = '100vh';
-        overlay.style.background = 'rgba(0,0,0,0.85)';
-        overlay.style.display = 'flex';
-        overlay.style.alignItems = 'center';
-        overlay.style.justifyContent = 'center';
-        overlay.style.zIndex = 9999;
-        overlay.style.cursor = 'zoom-out';
-        overlay.innerHTML = '<img style="max-width:90vw;max-height:90vh;border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.25);transition:transform .3s;" />';
-        overlay.addEventListener('click', function(e) {
-            if (e.target === overlay) overlay.remove();
-        });
-        document.body.appendChild(overlay);
-    }
-    const img = overlay.querySelector('img');
-    img.src = src;
-    overlay.style.display = 'flex';
-    setTimeout(() => { overlay.style.opacity = 1; }, 10);
-    img.onclick = (e) => { e.stopPropagation(); overlay.remove(); };
 }
 
 // Resource tabs functionality
@@ -953,6 +1216,12 @@ function initPromoCodeForm() {
         console.log('🔧 === FORM SUBMISSION DEBUG START ===');
         if (e) e.preventDefault();
         
+        // Double-check that submitBtn is the download form button
+        if (!submitBtn || !submitBtn.classList.contains('download-btn')) {
+            console.log('❌ Invalid submit button, aborting form submission');
+            return;
+        }
+        
         const email = emailInput.value.trim();
         const isAgreed = checkboxInput ? checkboxInput.checked : true;
         
@@ -1030,6 +1299,12 @@ function initPromoCodeForm() {
     submitBtn.addEventListener('click', async function(e) {
         console.log('🔧 === BACKUP CLICK HANDLER ===');
         
+        // Ensure this is the correct download button, not auth buttons
+        if (!e.target.classList.contains('download-btn')) {
+            console.log('❌ Not a download button, ignoring');
+            return;
+        }
+        
         // Check if HTML5 validation is blocking
         const isFormValid = form.checkValidity();
         console.log('📋 Form validity:', isFormValid);
@@ -1053,6 +1328,16 @@ function initPromoCodeForm() {
     
 
     
+    // Ensure auth buttons don't trigger form submission
+    const authButtons = document.querySelectorAll('.nav-auth .btn, .footer-auth .btn, .mobile-auth-buttons .btn');
+    authButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Stop any potential event bubbling that might trigger form handlers
+            e.stopPropagation();
+            console.log('🔒 Auth button clicked, not triggering form submission');
+        });
+    });
+    
     console.log('✅ Promo code form initialized successfully!');
     console.log('🔧 === FORM INITIALIZATION DEBUG END ===');
 }
@@ -1074,73 +1359,11 @@ function generatePromoCode() {
     return prefix + code;
 }
 
-// Send promo code email - Auto-detect environment
+// Send promo code email - Direct PHP implementation
 async function sendPromoCodeEmail(email, promoCode) {
     console.log('🔧 === EMAIL SENDING DEBUG START ===');
     console.log('📧 Input email:', email);
     console.log('🎫 Generated promo code:', promoCode);
-    
-    // Detect if running locally (file://) or on web server
-    const isLocalFile = window.location.protocol === 'file:';
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const useEmailJS = isLocalFile || (isLocalhost && typeof emailjs !== 'undefined');
-    
-    console.log('🌍 Environment detection:', {
-        protocol: window.location.protocol,
-        hostname: window.location.hostname,
-        isLocalFile: isLocalFile,
-        isLocalhost: isLocalhost,
-        emailJSAvailable: typeof emailjs !== 'undefined',
-        useEmailJS: useEmailJS
-    });
-    
-    if (useEmailJS) {
-        return await sendViaEmailJS(email, promoCode);
-    } else {
-        return await sendViaPHP(email, promoCode);
-    }
-}
-
-// EmailJS fallback for local development
-async function sendViaEmailJS(email, promoCode) {
-    console.log('📧 Using EmailJS for email sending...');
-    
-    if (typeof emailjs === 'undefined') {
-        throw new Error('EmailJS not available for local development');
-    }
-    
-    const emailData = {
-        email: email,
-        passcode: promoCode,
-        time: new Date(Date.now() + 30*24*60*60*1000).toLocaleString('ru-RU', {
-            year: 'numeric',
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        })
-    };
-    
-    console.log('📨 EmailJS data prepared:', emailData);
-    
-    try {
-        const result = await emailjs.send(
-            'service_wmfwg7g',
-            'template_m4t998s',
-            emailData
-        );
-        
-        console.log('✅ Email sent successfully via EmailJS!');
-        return result;
-        
-    } catch (error) {
-        console.error('❌ EmailJS error:', error);
-        throw error;
-    }
-}
-
-// PHP backend for production
-async function sendViaPHP(email, promoCode) {
     console.log('🐘 Using PHP backend for email sending...');
     
     const emailData = {
@@ -1151,7 +1374,7 @@ async function sendViaPHP(email, promoCode) {
     console.log('📨 PHP data prepared:', emailData);
     
     try {
-        const response = await fetch('/send-promocode.php', {
+        const response = await fetch('send-promocode.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -1208,20 +1431,6 @@ function showMessage(text, type = 'info') {
     }
 }
 
-// Check EmailJS initialization on page load
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔧 === EMAILJS INITIALIZATION CHECK ===');
-    
-    setTimeout(() => {
-        if (typeof emailjs !== 'undefined') {
-            console.log('✅ EmailJS library loaded successfully');
-            console.log('📧 EmailJS version:', emailjs.version || 'unknown');
-        } else {
-            console.error('❌ EmailJS library not found!');
-            console.error('Check if EmailJS script is loaded properly');
-        }
-        console.log('🔧 === EMAILJS INITIALIZATION CHECK END ===');
-    }, 1000);
-});
+
 
 console.log('Aitracking Landing Page loaded successfully! 🚀'); 

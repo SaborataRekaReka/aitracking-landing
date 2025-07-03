@@ -19,7 +19,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style-optimized.css">
+    <link rel="stylesheet" href="../assets/css/carousel-optimized.css">
 </head>
 <body>
     <!-- Header -->
@@ -39,6 +40,40 @@
                     <li><a href="#pricing" class="nav-link">Pricing</a></li>
                     <li><a href="#" class="nav-link">Blog</a></li>
                     <li><a href="#" class="nav-link">Contacts</a></li>
+                    
+                    <!-- Mobile-only elements -->
+                    <li class="mobile-only-divider"></li>
+                    
+                    <!-- Auth buttons for mobile -->
+                    <li class="mobile-auth-section">
+                        <div class="mobile-auth-buttons">
+                            <button class="btn btn-mobile-ghost">Sign Up</button>
+                            <button class="btn btn-mobile-primary">Login</button>
+                        </div>
+                    </li>
+                    
+                    <!-- Language switcher for mobile - moved to bottom -->
+                    <li class="mobile-lang-switcher mobile-lang-bottom">
+                        <div class="mobile-lang-dropdown">
+                            <button class="mobile-lang-current" id="mobile-lang-current">
+                                <span class="mobile-lang-flag">🇺🇸</span>
+                                <span class="mobile-lang-name">English</span>
+                                <svg class="mobile-lang-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <div class="mobile-lang-options" id="mobile-lang-options">
+                                <button class="mobile-lang-option" data-lang="ru">
+                                    <span class="mobile-lang-flag">🇷🇺</span>
+                                    <span class="mobile-lang-name">Русский</span>
+                                </button>
+                                <button class="mobile-lang-option active" data-lang="en">
+                                    <span class="mobile-lang-flag">🇺🇸</span>
+                                    <span class="mobile-lang-name">English</span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
                 
                 <!-- Language switcher -->
@@ -63,6 +98,9 @@
             </nav>
         </div>
     </header>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
 
     <!-- Main content -->
     <main class="main">
@@ -117,12 +155,20 @@
                 <div class="hero-right">
                     <div class="hero-carousel">
                         <div class="hero-carousel-track">
-                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/1.jpg" alt="Eye-tracking analysis" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/2.jpg" alt="User gaze plot analysis" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/3.jpg" alt="Attention opacity map" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/4.jpg" alt="Interface heatmap" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/4-1.jpg" alt="Detailed analysis" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/5.jpg" alt="Eye-tracking report" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/6.jpg" alt="Attention analytics" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/7.jpg" alt="Data visualization" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/9.jpg" alt="Behavioral analysis" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/9-1.jpg" alt="Gaze patterns" loading="lazy"></div>
+                            <!-- Duplicates for infinite scroll -->
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/1.jpg" alt="Eye-tracking analysis" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/2.jpg" alt="User gaze plot analysis" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="../assets/images/examples/3.jpg" alt="Attention opacity map" loading="lazy"></div>
                         </div>
                     </div>
                 </div>
@@ -361,13 +407,13 @@
                     </p>
                     
                     <div class="technology-buttons">
-                                                    <button class="video-btn">
+                        <!-- <button class="video-btn">
                                 <div class="video-btn-content">
                                     <div class="play-icon"></div>
                                     <span>Watch video</span>
                                 </div>
-                            </button>
-                        <button class="btn-text">FAQ</button>
+                            </button> -->
+                        <a href="../index.html#faq" class="btn-text">FAQ</a>
                     </div>
                     
                     <div class="technology-inline-stats">
@@ -526,13 +572,13 @@
             <div class="resources-content">
                 <div class="resources-left">
                     <div class="resources-image">
-                        <img id="resource-image" src="../assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f502.jpg" alt="Interface" />
+                        <img id="resource-image" src="../assets/images/reports/teplovaya.jpg" alt="Interface" />
                     </div>
                 </div>
                 
                 <div class="resources-right">
                     <div class="resources-list">
-                        <div class="resource-item active" data-tab="pricing" data-image="../assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f502.jpg">
+                        <div class="resource-item active" data-tab="pricing" data-image="../assets/images/reports/teplovaya.jpg">
                             <div class="resource-number">01</div>
                             <div class="resource-content">
                                 <h3 class="resource-title">Pricing and packaging</h3>
@@ -541,7 +587,7 @@
                             </div>
                         </div>
                         
-                        <div class="resource-item" data-tab="billing" data-image="../assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f5022.jpg">
+                        <div class="resource-item" data-tab="billing" data-image="../assets/images/reports/ocherednost.jpg">
                             <div class="resource-number">02</div>
                             <div class="resource-content">
                                 <h3 class="resource-title">Billing and payments</h3>
@@ -588,7 +634,7 @@
                     </label>
                     <span class="toggle-label">
                         Annually 
-                        <span class="discount-badge">50% off</span>
+                        <span class="discount-badge">Save up to $400</span>
                     </span>
                 </div>
             </div>
@@ -604,8 +650,8 @@
                     <div class="plan-pricing">
                         <div class="price-container">
                             <span class="currency">$</span>
-                            <span class="amount monthly-price">7</span>
-                            <span class="amount yearly-price" style="display: none;">3.5</span>
+                            <span class="amount monthly-price">15</span>
+                            <span class="amount yearly-price" style="display: none;">13.75</span>
                             <span class="billing-period">
                                 <span class="monthly-period">/ month</span>
                                 <span class="yearly-period" style="display: none;">/ month</span>
@@ -638,8 +684,8 @@
                     <div class="plan-pricing">
                         <div class="price-container">
                             <span class="currency">$</span>
-                            <span class="amount monthly-price">28</span>
-                            <span class="amount yearly-price" style="display: none;">14</span>
+                            <span class="amount monthly-price">67</span>
+                            <span class="amount yearly-price" style="display: none;">61</span>
                             <span class="billing-period">
                                 <span class="monthly-period">/ month</span>
                                 <span class="yearly-period" style="display: none;">/ month</span>
@@ -678,8 +724,8 @@
                     <div class="plan-pricing">
                         <div class="price-container">
                             <span class="currency">$</span>
-                            <span class="amount monthly-price">63</span>
-                            <span class="amount yearly-price" style="display: none;">31.5</span>
+                            <span class="amount monthly-price">176</span>
+                            <span class="amount yearly-price" style="display: none;">161</span>
                             <span class="billing-period">
                                 <span class="monthly-period">/ month</span>
                                 <span class="yearly-period" style="display: none;">/ month</span>
@@ -713,8 +759,8 @@
                     <div class="plan-pricing">
                         <div class="price-container">
                             <span class="currency">$</span>
-                            <span class="amount monthly-price">140</span>
-                            <span class="amount yearly-price" style="display: none;">70</span>
+                            <span class="amount monthly-price">400</span>
+                            <span class="amount yearly-price" style="display: none;">367</span>
                             <span class="billing-period">
                                 <span class="monthly-period">/ month</span>
                                 <span class="yearly-period" style="display: none;">/ month</span>
@@ -750,8 +796,530 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Left section - Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../assets/images/logo.svg" alt="Aitracking" height="42">
+                    </div>
+                    <p class="footer-brand-description">
+                        Aitracking is an AI platform for analyzing user attention on websites and mobile applications.
+                    </p>
+                </div>
+
+                <!-- Right section - Links -->
+                <div class="footer-links">
+                    <!-- Quick Links -->
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Quick Links</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Home</a></li>
+                            <li><a href="#" class="footer-link">About Us</a></li>
+                            <li><a href="#" class="footer-link">Services</a></li>
+                            <li><a href="#" class="footer-link">Blog</a></li>
+                            <li><a href="#" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Legal & Compliance -->
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Legal & Compliance</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                            <li><a href="#" class="footer-link">Terms & Conditions</a></li>
+                            <li><a href="#" class="footer-link">Risk Disclosure</a></li>
+                            <li><a href="#" class="footer-link">Refund Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contacts -->
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Contacts</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="mailto:support@aitracking.app" class="footer-link">support@aitracking.app</a></li>
+                            <li><a href="https://t.me/aitrackingappbot" class="footer-link" target="_blank">t.me/aitrackingappbot</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer bottom -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">© Aitracking. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <!-- JavaScript -->
-    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/hero-carousel-optimized.js"></script>
+    <script src="../assets/js/main.js">    </script>
+
+    <!-- Demo Request Modal -->
+    <div id="demo-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Request Demo</h2>
+                <button class="modal-close" id="modal-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p class="modal-description">
+                    Fill out the form below and we'll contact you to schedule a personalized demonstration
+                </p>
+                
+                <form id="demo-form" class="demo-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="demo-name" class="form-label">Name *</label>
+                            <input type="text" id="demo-name" name="name" class="form-input" required placeholder="Your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="demo-email" class="form-label">Email *</label>
+                            <input type="email" id="demo-email" name="email" class="form-input" required placeholder="your@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="demo-phone" class="form-label">Phone *</label>
+                            <input type="tel" id="demo-phone" name="phone" class="form-input" required placeholder="+1 (555) 123-4567">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="demo-date" class="form-label">Preferred Date</label>
+                            <input type="date" id="demo-date" name="date" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="demo-time" class="form-label">Preferred Time</label>
+                            <select id="demo-time" name="time" class="form-input">
+                                <option value="">Select time</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                                <option value="17:00">05:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label for="demo-comment" class="form-label">Comment</label>
+                        <textarea id="demo-comment" name="comment" class="form-textarea" rows="4" placeholder="Tell us about your needs and what interests you about our service"></textarea>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="demo-consent" name="consent" required>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">I agree to the processing of personal data in accordance with the <a href="#" class="privacy-link">privacy policy</a></span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="btn-icon">
+                                <path d="M8 2V5M16 2V5M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15.6947 13.7002H15.7037M11.9955 13.7002H12.0045M8.29431 13.7002H8.30329" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Book Time
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Demo Request Modal Styles - Same as Russian version */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            transform: translateY(30px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 32px 0 32px;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: #f3f4f6;
+            border: none;
+            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #6b7280;
+        }
+
+        .modal-close:hover {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .modal-body {
+            padding: 0 32px 32px 32px;
+        }
+
+        .modal-description {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0 0 32px 0;
+        }
+
+        .demo-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin: 0;
+        }
+
+        .form-input,
+        .form-textarea {
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: white;
+            color: #1a1a1a;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #7A7ADB;
+            box-shadow: 0 0 0 3px rgba(122, 122, 219, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.2s ease;
+            margin-top: 2px;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark {
+            background: #7A7ADB;
+            border-color: #7A7ADB;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 4px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-text {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .privacy-link {
+            color: #7A7ADB;
+            text-decoration: none;
+        }
+
+        .privacy-link:hover {
+            text-decoration: underline;
+        }
+
+        .form-actions {
+            margin-top: 8px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(122, 122, 219, 0.3);
+        }
+
+        .btn-icon {
+            flex-shrink: 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .modal-container {
+                width: 95%;
+                margin: 20px;
+                border-radius: 20px;
+            }
+
+            .modal-header {
+                padding: 24px 24px 0 24px;
+            }
+
+            .modal-title {
+                font-size: 24px;
+            }
+
+            .modal-body {
+                padding: 0 24px 24px 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .demo-form {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-container {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                max-height: 100vh;
+            }
+        }
+    </style>
+
+    <script>
+        // Demo Request Modal JavaScript for English version
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoBtn = document.getElementById('demo-request-btn');
+            const modal = document.getElementById('demo-modal');
+            const closeBtn = document.getElementById('modal-close');
+            const form = document.getElementById('demo-form');
+
+            // Open modal (if button exists)
+            if (demoBtn) {
+                demoBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            // Close modal
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeModal);
+            }
+
+            // Close on overlay click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+            // Set minimum date to today
+            const dateInput = document.getElementById('demo-date');
+            if (dateInput) {
+                const today = new Date();
+                const minDate = today.toISOString().split('T')[0];
+                dateInput.min = minDate;
+            }
+
+            // Form submission
+            if (form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData);
+                    
+                    // Basic validation
+                    if (!data.name || !data.email || !data.phone || !data.consent) {
+                        alert('Please fill in all required fields and agree to data processing');
+                        return;
+                    }
+
+                    // Show loading state
+                    const submitBtn = form.querySelector('.btn-submit');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<div style="display: flex; align-items: center; gap: 8px;"><div style="width: 20px; height: 20px; border: 2px solid #fff; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>Sending...</div>';
+                    submitBtn.disabled = true;
+
+                    try {
+                        // Send data to server
+                        const response = await fetch('../send-demo-request.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                name: data.name,
+                                email: data.email,
+                                phone: data.phone,
+                                date: data.date,
+                                time: data.time,
+                                comment: data.comment
+                            })
+                        });
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            alert('Thank you! Your request has been submitted. We will contact you shortly.');
+                            closeModal();
+                            form.reset();
+                        } else {
+                            throw new Error(result.error || 'An error occurred while sending');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while submitting your request. Please try again later or contact us directly.');
+                    } finally {
+                        // Restore button state
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        });
+
+        // Add spinning animation for loading state
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html> 
 

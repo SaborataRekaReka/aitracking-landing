@@ -157,18 +157,124 @@ ini_set('sendmail_from', $smtp_from);
 // For production, you should use PHPMailer or SwiftMailer for better SMTP support
 // This is a simple implementation that works with basic SMTP
 
-$success = mail(
+// 1. Send promo code to user
+$success_user = mail(
     $email,
     $subject,
     $email_body,
     implode("\r\n", $headers)
 );
 
-if ($success) {
+// 2. Send notification to admin
+$admin_email = 'order@aitracking.app';
+$admin_subject = "Новый запрос промокода AI Tracking";
+$request_date = date('j F Y г. в H:i');
+
+$admin_html_body = "
+<div style=\"font-family: system-ui, sans-serif, Arial; font-size: 14px; max-width: 600px; margin: 0 auto;\">
+  <div style=\"text-align: center; padding: 20px 0; border-bottom: 1px solid #eaeaea;\">
+    <h1 style=\"color: #7A7ADB; margin: 0;\">AI Tracking</h1>
+    <p style=\"color: #666; margin: 5px 0 0 0;\">Новый запрос промокода</p>
+  </div>
+  
+  <div style=\"padding: 20px 0;\">
+    <h2 style=\"color: #333; margin-top: 0;\">📧 Детали запроса:</h2>
+    
+    <div style=\"background: #f8f9fa; border-left: 4px solid #7A7ADB; padding: 20px; margin: 20px 0;\">
+      <p style=\"margin: 0 0 10px 0;\"><strong>Email клиента:</strong> <a href=\"mailto:{$email}\" style=\"color: #7A7ADB;\">{$email}</a></p>
+      <p style=\"margin: 0 0 10px 0;\"><strong>Промокод:</strong> <span style=\"background: #e8f4f8; padding: 4px 8px; border-radius: 4px; font-family: monospace;\">{$promo_code}</span></p>
+      <p style=\"margin: 0 0 10px 0;\"><strong>Дата запроса:</strong> {$request_date}</p>
+      <p style=\"margin: 0;\"><strong>Срок действия:</strong> {$expiry_date}</p>
+    </div>
+    
+    <div style=\"background: #e8f4f8; border: 1px solid #7A7ADB; padding: 20px; border-radius: 8px; margin: 20px 0;\">
+      <h3 style=\"color: #333; margin-top: 0;\">🎯 Рекомендуемые действия:</h3>
+      <ul style=\"color: #666; line-height: 1.6; margin: 0;\">
+        <li>Отслеживать использование промокода в системе</li>
+        <li>Добавить email в базу потенциальных клиентов</li>
+        <li>При необходимости отправить дополнительную информацию</li>
+        <li>Проанализировать источник трафика</li>
+      </ul>
+    </div>
+    
+    <div style=\"background: #fff; border: 1px solid #eaeaea; padding: 20px; border-radius: 8px; margin: 20px 0;\">
+      <h3 style=\"color: #333; margin-top: 0;\">💬 Что получил клиент:</h3>
+      <p style=\"color: #666; line-height: 1.6; margin: 0;\">
+        Клиент получил письмо с промокодом <strong>{$promo_code}</strong> на 3 бесплатных анализа. 
+        Промокод действителен до {$expiry_date}.
+      </p>
+    </div>
+    
+    <div style=\"text-align: center; padding: 20px 0; border-top: 1px solid #eaeaea; margin-top: 30px;\">
+      <p style=\"color: #999; font-size: 12px; margin: 0;\">
+        Запрос отправлен с сайта<br>
+        <a href=\"https://aitracking.app\" style=\"color: #7A7ADB;\">aitracking.app</a>
+      </p>
+    </div>
+  </div>
+</div>
+";
+
+$admin_text_body = "
+AI Tracking - Новый запрос промокода
+
+Детали запроса:
+Email клиента: {$email}
+Промокод: {$promo_code}
+Дата запроса: {$request_date}
+Срок действия: {$expiry_date}
+
+Рекомендуемые действия:
+• Отслеживать использование промокода в системе
+• Добавить email в базу потенциальных клиентов
+• При необходимости отправить дополнительную информацию
+• Проанализировать источник трафика
+
+Что получил клиент:
+Клиент получил письмо с промокодом {$promo_code} на 3 бесплатных анализа.
+Промокод действителен до {$expiry_date}.
+
+---
+Запрос отправлен с сайта https://aitracking.app
+";
+
+// Create admin email headers
+$admin_boundary = uniqid('admin_boundary_');
+$admin_headers = [
+    "MIME-Version: 1.0",
+    "Content-Type: multipart/alternative; boundary=\"{$admin_boundary}\"",
+    "From: {$smtp_from_name} <{$smtp_from}>",
+    "Reply-To: {$email}",
+    "X-Mailer: PHP/" . phpversion()
+];
+
+$admin_email_body = "--{$admin_boundary}\r\n";
+$admin_email_body .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$admin_email_body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+$admin_email_body .= $admin_text_body . "\r\n\r\n";
+
+$admin_email_body .= "--{$admin_boundary}\r\n";
+$admin_email_body .= "Content-Type: text/html; charset=UTF-8\r\n";
+$admin_email_body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+$admin_email_body .= $admin_html_body . "\r\n\r\n";
+
+$admin_email_body .= "--{$admin_boundary}--\r\n";
+
+$success_admin = mail(
+    $admin_email,
+    $admin_subject,
+    $admin_email_body,
+    implode("\r\n", $admin_headers)
+);
+
+// Check results
+if ($success_user) {
+    // Always return success if user email was sent, admin notification is secondary
     echo json_encode([
         'success' => true,
         'message' => 'Промокод успешно отправлен на ваш email',
-        'promo_code' => $promo_code
+        'promo_code' => $promo_code,
+        'admin_notified' => $success_admin
     ]);
 } else {
     http_response_code(500);

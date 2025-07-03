@@ -1,0 +1,158 @@
+/* Optimized Hero Carousel CSS */
+.hero-carousel {
+    width: 400px;
+    height: 660px;
+    overflow: hidden;
+    position: relative;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+}
+
+.hero-carousel-track {
+    display: flex;
+    flex-direction: column;
+    animation: scrollVertical 40s linear infinite;
+    will-change: transform;
+}
+
+/* Pause on hover */
+.hero-carousel:hover .hero-carousel-track {
+    animation-play-state: paused;
+}
+
+.hero-carousel-slide {
+    height: 220px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.hero-carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+.hero-carousel-slide:hover img {
+    transform: scale(1.05);
+}
+
+/* Keyframes for vertical scrolling */
+@keyframes scrollVertical {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        /* 6 original slides * (220px + 20px margin) = 1440px */
+        transform: translateY(-1440px);
+    }
+}
+
+/* Responsive - Horizontal on mobile/tablet */
+@media (max-width: 992px) {
+    .hero-carousel {
+        width: 100%;
+        max-width: 800px;
+        height: 200px;
+        margin: 0 auto;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    }
+    
+    .hero-carousel-track {
+        flex-direction: row;
+        animation: scrollHorizontal 40s linear infinite;
+    }
+    
+    .hero-carousel-slide {
+        height: 100%;
+        width: 280px;
+        flex-shrink: 0;
+        margin-right: 20px;
+    }
+    
+    .hero-carousel-slide:last-child {
+        margin-right: 0;
+    }
+    
+    @keyframes scrollHorizontal {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            /* 6 slides * (280px + 20px margin) = 1800px */
+            transform: translateX(-1800px);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-carousel {
+        max-width: 600px;
+        height: 180px;
+    }
+    
+    .hero-carousel-slide {
+        width: 240px;
+        margin-right: 16px;
+    }
+    
+    .hero-carousel-slide img {
+        height: 80%;
+    }
+    
+    @keyframes scrollHorizontal {
+        100% {
+            /* 6 slides * (240px + 16px) = 1536px */
+            transform: translateX(-1536px);
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-carousel {
+        max-width: 500px;
+        height: 150px;
+    }
+    
+    .hero-carousel-slide {
+        width: 200px;
+        margin-right: 12px;
+    }
+    
+    .hero-carousel-slide img {
+        height: 70%;
+    }
+    
+    @keyframes scrollHorizontal {
+        100% {
+            transform: translateX(-1272px);
+        }
+    }
+}
+
+/* Performance optimizations */
+.hero-carousel * {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .hero-carousel-track {
+        animation: none;
+    }
+    
+    .hero-carousel-slide img {
+        transition: none;
+    }
+} 

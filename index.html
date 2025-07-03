@@ -19,7 +19,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style-optimized.css">
+    <link rel="stylesheet" href="assets/css/carousel-optimized.css">
 </head>
 <body>
     <!-- Header -->
@@ -35,10 +36,44 @@
                 
                 <!-- Navigation -->
                 <ul class="nav-menu">
-                    <li><a href="#" class="nav-link">О сервисе</a></li>
+                    <li><a href="#technology" class="nav-link">О технологии</a></li>
+                    <li><a href="#reports" class="nav-link">Отчеты</a></li>
                     <li><a href="#pricing" class="nav-link">Тарифы</a></li>
-                    <li><a href="#" class="nav-link">Блог</a></li>
-                    <li><a href="#" class="nav-link">Контакты</a></li>
+                    <li><a href="#testimonials" class="nav-link">Отзывы</a></li>
+                    
+                    <!-- Mobile-only elements -->
+                    <li class="mobile-only-divider"></li>
+                    
+                    <!-- Auth buttons for mobile -->
+                    <li class="mobile-auth-section">
+                        <div class="mobile-auth-buttons">
+                            <a href="https://platform.aitracking.app/signup" class="btn btn-mobile-ghost">Регистрация</a>
+                            <a href="https://platform.aitracking.app/login" class="btn btn-mobile-primary">Вход</a>
+                        </div>
+                    </li>
+                    
+                    <!-- Language switcher for mobile - moved to bottom -->
+                    <li class="mobile-lang-switcher mobile-lang-bottom">
+                        <div class="mobile-lang-dropdown">
+                            <button class="mobile-lang-current" id="mobile-lang-current">
+                                <span class="mobile-lang-flag">🇷🇺</span>
+                                <span class="mobile-lang-name">Русский</span>
+                                <svg class="mobile-lang-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <div class="mobile-lang-options" id="mobile-lang-options">
+                                <button class="mobile-lang-option active" data-lang="ru">
+                                    <span class="mobile-lang-flag">🇷🇺</span>
+                                    <span class="mobile-lang-name">Русский</span>
+                                </button>
+                                <button class="mobile-lang-option" data-lang="en">
+                                    <span class="mobile-lang-flag">🇺🇸</span>
+                                    <span class="mobile-lang-name">English</span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
                 
                 <!-- Language switcher -->
@@ -50,8 +85,8 @@
                 
                 <!-- Auth buttons -->
                 <div class="nav-auth">
-                    <button class="btn btn-ghost">Регистрация</button>
-                    <button class="btn btn-primary">Вход</button>
+                    <a href="https://platform.aitracking.app/signup" class="btn btn-ghost">Регистрация</a>
+                    <a href="https://platform.aitracking.app/login" class="btn btn-primary">Вход</a>
                 </div>
                 
                 <!-- Mobile menu button -->
@@ -63,6 +98,9 @@
             </nav>
         </div>
     </header>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
 
     <!-- Main content -->
     <main class="main">
@@ -96,22 +134,43 @@
                     
                     <!-- Description -->
                     <p class="hero-description">
-                        Посмотрите на ваш дизайн глазами<br>
-                        пользователей и сделайте его по-настоящему<br>
-                        эффективным
+                        Посмотрите на ваш дизайн глазами пользователей<br> и сделайте его по-настоящему эффективным
                     </p>
                     
                     <!-- CTA buttons -->
                     <div class="hero-buttons">
-                        <!-- Button heatmap gradient background -->
-                        <div class="button-heatmap-gradient" id="button-heatmap-gradient"></div>
-                        <button class="btn btn-outline">
-                            <img src="assets/images/arrow-circle-broken-down.svg" alt="Arrow down" width="16" height="16">
-                            Узнать больше
-                        </button>
-                        <button class="btn btn-primary" id="cta-button">
-                            Начать пользоваться
-                        </button>
+                        <div class="primary-button-wrapper">
+                            <!-- Button heatmap gradient background -->
+                            <div class="button-heatmap-gradient" id="button-heatmap-gradient"></div>
+                            <a href="https://platform.aitracking.app/login" class="btn btn-primary" id="cta-button">
+                                Начать пользоваться
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Users testimonial preview -->
+                    <div class="users-preview">
+                        <div class="users-avatars">
+                            <div class="user-avatar">
+                                <img src="assets/images/reviews/TimAsh.jpg" alt="Пользователь">
+                            </div>
+                            <div class="user-avatar">
+                                <img src="assets/images/reviews/neil-patel-200x200.jpg" alt="Пользователь">
+                            </div>
+                            <div class="user-avatar">
+                                <img src="assets/images/reviews/Bryan_Eisenberg2.jpg" alt="Пользователь">
+                            </div>
+                            <div class="user-avatar">
+                                <img src="assets/images/reviews/BenSnyder.jpg" alt="Пользователь">
+                            </div>
+                            <div class="user-avatar">
+                                <img src="assets/images/reviews/ChuckBankoff-200x200.jpg" alt="Пользователь">
+                            </div>
+                        </div>
+                        <div class="users-text">
+                            <span class="users-count">Присоединяйтесь к 30,000+ пользователей</span>
+                            <span class="users-description">и начните анализировать дизайн уже сегодня</span>
+                        </div>
                     </div>
                 </div>
 
@@ -119,12 +178,20 @@
                 <div class="hero-right">
                     <div class="hero-carousel">
                         <div class="hero-carousel-track">
-                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
-                            <div class="hero-carousel-slide"><img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" alt="Heatmap"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/1.jpg" alt="Eye-tracking анализ" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/2.jpg" alt="Анализ взгляда пользователя" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/3.jpg" alt="Карта внимания" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/4.jpg" alt="Тепловая карта интерфейса" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/4-1.jpg" alt="Детальный анализ" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/5.jpg" alt="Отчет eye-tracking" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/6.jpg" alt="Аналитика внимания" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/7.jpg" alt="Визуализация данных" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/9.jpg" alt="Поведенческий анализ" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/9-1.jpg" alt="Паттерны взгляда" loading="lazy"></div>
+                            <!-- Дубликаты для бесконечной прокрутки -->
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/1.jpg" alt="Eye-tracking анализ" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/2.jpg" alt="Анализ взгляда пользователя" loading="lazy"></div>
+                            <div class="hero-carousel-slide"><img src="assets/images/examples/3.jpg" alt="Карта внимания" loading="lazy"></div>
                         </div>
                     </div>
                 </div>
@@ -199,99 +266,149 @@
                     <button class="tab-btn" data-tab="marketplace">Маркетплейсы</button>
                     <button class="tab-btn" data-tab="advertising">Реклама в интернете</button>
                     <button class="tab-btn" data-tab="mobile">Мобильные приложения</button>
+                    <button class="tab-btn" data-tab="outdoor">Наружная реклама</button>
+                    <button class="tab-btn" data-tab="design">Дизайн</button>
                 </div>
                 
                 <div class="tabs-content">
                     <div class="tab-content active" data-content="websites">
                         <div class="tab-left">
                             <div class="tab-image">
-                                    <img src="assets/images/examples/7606ac61-5622-46e3-bb30-7d1fd18d84f0_heatmap.png" 
-                                         alt="Heatmap анализ сайта аптеки ЕАПТЕКА"
-                                         class="lightbox-trigger">
-                                </div>
+                                <img src="assets/images/tabs/vebsaity.jpg" 
+                                     alt="Heatmap анализ сайта"
+                                     class="lightbox-trigger">
+                            </div>
                         </div>
                         <div class="tab-right">
                             <div class="tab-info">
-                                <h3 class="tab-info-title">Анализ внимания на аптечных сайтах</h3>
+                                <h3 class="tab-info-title">Анализ внимания на веб-сайтах</h3>
                                 <p class="tab-info-description">
-                                    Выявите, какие элементы привлекают внимание покупателей: акции, кнопки корзины или поисковая строка
+                                    Узнайте, какие элементы сайта привлекают больше всего внимания пользователей и как повысить конверсию.
                                 </p>
                                 <ul class="tab-features">
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ внимания к заголовкам</li>
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тепловые карты изображений</li>
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оценка CTA элементов</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ ключевых зон внимания</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тепловые карты взаимодействия</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оценка эффективности CTA</li>
                                 </ul>
                                 <button class="tab-cta-btn">Попробовать бесплатно</button>
-                                </div>
                             </div>
                         </div>
-                        
+                    </div>
+                    
                     <div class="tab-content" data-content="marketplace">
                         <div class="tab-left">
                             <div class="tab-image">
-                                    <img src="assets/images/examples/0196339c-2bd4-4d55-9299-a53395ea7579_gazeplot.png" 
-                                         alt="Gazeplot анализ маркетплейса"
-                                         class="lightbox-trigger">
-                                </div>
+                                <img src="assets/images/tabs/marketplace.jpg" 
+                                     alt="Gazeplot анализ маркетплейса"
+                                     class="lightbox-trigger">
+                            </div>
                         </div>
                         <div class="tab-right">
                             <div class="tab-info">
-                                <h3 class="tab-info-title">Выделяйтесь на маркетплейсах</h3>
+                                <h3 class="tab-info-title">Оптимизация карточек на маркетплейсах</h3>
                                 <p class="tab-info-description">
-                                    На Ozon, WildBerries и других маркетплейсах продажи зависят от того, насколько ваша карточка привлекательнее конкурентов
+                                    Повышайте продажи за счет анализа привлекательности карточек товаров и конкурентных преимуществ.
                                 </p>
                                 <ul class="tab-features">
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оптимизация карточек товаров</li>
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ конкурентных преимуществ</li>
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тестирование заголовков и описаний</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ карточек товаров</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Сравнение с конкурентами</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тестирование описаний и изображений</li>
                                 </ul>
                                 <button class="tab-cta-btn">Попробовать бесплатно</button>
-                                </div>
                             </div>
                         </div>
-                        
+                    </div>
+                    
                     <div class="tab-content" data-content="advertising">
                         <div class="tab-left">
                             <div class="tab-image">
-                                    <img src="assets/images/examples/5e85b2e2-db4c-43c1-afe7-764745ea55ca_opacity.png" 
-                                         alt="Opacity анализ рекламы"
-                                         class="lightbox-trigger">
-                                </div>
+                                <img src="assets/images/tabs/reklamavinternete.jpg" 
+                                     alt="Opacity анализ рекламы"
+                                     class="lightbox-trigger">
+                            </div>
                         </div>
                         <div class="tab-right">
                             <div class="tab-info">
-                                <h3 class="tab-info-title">Увеличьте CTR рекламы</h3>
+                                <h3 class="tab-info-title">Повышение эффективности онлайн-рекламы</h3>
                                 <p class="tab-info-description">
-                                    Платите меньше за клик и получайте больше лидов за счет улучшения заметности и CTR вашей рекламы в интернете.
+                                    Определите, какие креативы и баннеры привлекают больше внимания и увеличивают CTR.
                                 </p>
                                 <ul class="tab-features">
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оптимизация баннеров и креативов</li>
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ эффективности CTA</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ баннеров и креативов</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оценка видимости CTA</li>
                                     <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тестирование рекламных макетов</li>
                                 </ul>
                                 <button class="tab-cta-btn">Попробовать бесплатно</button>
-                                </div>
                             </div>
                         </div>
-                        
+                    </div>
+                    
                     <div class="tab-content" data-content="mobile">
                         <div class="tab-left">
                             <div class="tab-image">
-                                    <img src="assets/images/examples/image-13_heatmap.png" 
-                                         alt="Heatmap анализ мобильного приложения"
-                                         class="lightbox-trigger">
+                                <img src="assets/images/tabs/mobilny_app.jpg" 
+                                     alt="Heatmap анализ мобильного приложения"
+                                     class="lightbox-trigger">
                             </div>
                         </div>
                         <div class="tab-right">
                             <div class="tab-info">
-                                <h3 class="tab-info-title">Оптимизируйте UX приложений</h3>
+                                <h3 class="tab-info-title">UX-анализ мобильных приложений</h3>
                                 <p class="tab-info-description">
-                                    Понимайте, как пользователи взаимодействуют с интерфейсом мобильных приложений и улучшайте пользовательский опыт
+                                    Поймите, как пользователи взаимодействуют с интерфейсом приложения и улучшайте пользовательский опыт.
                                 </p>
                                 <ul class="tab-features">
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> UX анализ интерфейсов</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ пользовательских сценариев</li>
                                     <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оптимизация навигации</li>
-                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тестирование пользовательских сценариев</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тестирование интерфейсов</li>
+                                </ul>
+                                <button class="tab-cta-btn">Попробовать бесплатно</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-content="outdoor">
+                        <div class="tab-left">
+                            <div class="tab-image">
+                                <img src="assets/images/tabs/naruzhka.jpg" 
+                                     alt="Анализ наружной рекламы"
+                                     class="lightbox-trigger">
+                            </div>
+                        </div>
+                        <div class="tab-right">
+                            <div class="tab-info">
+                                <h3 class="tab-info-title">Анализ наружной рекламы</h3>
+                                <p class="tab-info-description">
+                                    Оцените, насколько эффективно наружная реклама привлекает внимание прохожих и запоминается.
+                                </p>
+                                <ul class="tab-features">
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ видимости ключевых элементов</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оценка читаемости текста и слоганов</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Тестирование различных макетов</li>
+                                </ul>
+                                <button class="tab-cta-btn">Попробовать бесплатно</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-content="design">
+                        <div class="tab-left">
+                            <div class="tab-image">
+                                <img src="assets/images/tabs/dizain.jpg" 
+                                     alt="Оценка визуального дизайна"
+                                     class="lightbox-trigger">
+                            </div>
+                        </div>
+                        <div class="tab-right">
+                            <div class="tab-info">
+                                <h3 class="tab-info-title">Оценка визуального дизайна</h3>
+                                <p class="tab-info-description">
+                                    Получите объективную оценку визуальной привлекательности и понятности вашего дизайна.
+                                </p>
+                                <ul class="tab-features">
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Анализ композиции и баланса</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Оценка цветовых решений</li>
+                                    <li><img src="assets/images/check.svg" alt="Check" class="check-icon"> Проверка читаемости и иерархии</li>
                                 </ul>
                                 <button class="tab-cta-btn">Попробовать бесплатно</button>
                             </div>
@@ -305,7 +422,7 @@
 
 
     <!-- Technology Section -->
-    <section class="technology">
+    <section id="technology" class="technology">
         <div class="container">
             <div class="technology-content">
                 <div class="technology-left">
@@ -322,11 +439,11 @@
                     </p>
                     
                     <div class="technology-buttons">
-                                                    <button class="btn btn-outline">
+                        <!-- <button class="btn btn-outline">
                                 <img src="assets/images/play-circle.svg" alt="Play" width="16" height="16">
                                 Смотреть видео
-                            </button>
-                        <button class="btn-text">Частые вопросы</button>
+                            </button> -->
+                        <a href="#faq" class="btn-text">Частые вопросы</a>
                     </div>
                     
                     <div class="technology-inline-stats">
@@ -468,7 +585,7 @@
             <div class="data-harness-content">
                 <div class="data-harness-left">
                     <h2 class="data-harness-title">Откройте скрытый потенциал</h2>
-                    <button class="btn btn-primary">Заказать демонстрацию</button>
+                    <button class="btn btn-primary data-harness-btn" id="demo-request-btn">Заказать демонстрацию</button>
                 </div>
                 <div class="data-harness-center">
                     <div class="data-harness-description-group">
@@ -500,67 +617,59 @@
 
 
     <!-- Resources Section -->
-    <section class="resources">
+    <section id="reports" class="resources">
         <div class="container">
             <div class="resources-header">
                 <h2 class="resources-title">
-                    Resources You May <br>
-                    Find <span class="resources-interesting">
-                        Interesting
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="white"/>
-                        </svg>
-                    </span>
+                    Какие отчеты вы получите
                 </h2>
                 <p class="resources-description">
-                    Discover a curated selection of resources to<br>
-                    boost your knowledge and keep you ahead in<br>
-                    your field
+                    Раскройте ключевые аспекты восприятия вашего дизайна и используйте их для улучшения эффективности и привлекательности
                 </p>
             </div>
             
             <div class="resources-content">
                 <div class="resources-left">
                     <div class="resources-image">
-                        <img id="resource-image" src="assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f502.jpg" alt="Интерфейс ВКонтакте" />
+                        <img id="resource-image" src="assets/images/reports/teplovaya.jpg" alt="Тепловая карта" />
                     </div>
                 </div>
                 
                 <div class="resources-right">
                     <div class="resources-list">
-                        <div class="resource-item active" data-tab="pricing" data-image="assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f502.jpg">
+                        <div class="resource-item active" data-tab="heatmap" data-image="assets/images/reports/teplovaya.jpg">
                             <div class="resource-number">01</div>
                             <div class="resource-content">
-                                <h3 class="resource-title">Pricing and packaging</h3>
-                                <p class="resource-description">Select from our flexible pricing and tailored packages</p>
-                                <a href="#pricing" class="resource-btn">Попробовать</a>
+                                <h3 class="resource-title">Тепловая карта</h3>
+                                <p class="resource-description">Визуализирует, какие элементы дизайна привлекают внимание. Помогает быстро понять, что работает, а что игнорируется.</p>
+                                <!-- <a href="#pricing" class="resource-btn">Получить отчет</a> -->
                             </div>
                         </div>
                         
-                        <div class="resource-item" data-tab="billing" data-image="assets/images/reports/9d1d2114-fdd6-4b1c-955a-e457f666f5022.jpg">
+                        <div class="resource-item" data-tab="gazeplot" data-image="assets/images/reports/ocherednost.jpg">
                             <div class="resource-number">02</div>
                             <div class="resource-content">
-                                <h3 class="resource-title">Billing and payments</h3>
-                                <p class="resource-description">Simple and secure billing and payment management</p>
-                                <a href="#pricing" class="resource-btn">Попробовать</a>
+                                <h3 class="resource-title">Очередность внимания</h3>
+                                <p class="resource-description">Показывает порядок и траекторию взгляда пользователя. Позволяет выявить, что видят первым и как двигается внимание по макету.</p>
+                                <!-- <a href="#pricing" class="resource-btn">Получить отчет</a> -->
                             </div>
                         </div>
                         
-                        <div class="resource-item" data-tab="trends" data-image="assets/images/check.svg">
+                        <div class="resource-item" data-tab="opacity" data-image="assets/images/reports/slepye_zony.jpg">
                             <div class="resource-number">03</div>
                             <div class="resource-content">
-                                <h3 class="resource-title">Industry trends</h3>
-                                <p class="resource-description">Stay updated with the latest industry trends and insights</p>
-                                <a href="#pricing" class="resource-btn">Попробовать</a>
+                                <h3 class="resource-title">Слепые зоны</h3>
+                                <p class="resource-description">Выделяет области, которые остаются незамеченными. Помогает убрать лишнее и сделать важное более заметным.</p>
+                                <!-- <a href="#pricing" class="resource-btn">Получить отчет</a> -->
                             </div>
                         </div>
                         
-                        <div class="resource-item" data-tab="report" data-image="assets/images/logo.svg">
+                        <div class="resource-item" data-tab="aesthetics" data-image="assets/images/reports/estetika.jpg">
                             <div class="resource-number">04</div>
                             <div class="resource-content">
-                                <h3 class="resource-title">The SEI Report</h3>
-                                <p class="resource-description">The SEI Report provides key insights to guide your decisions</p>
-                                <a href="#pricing" class="resource-btn">Попробовать</a>
+                                <h3 class="resource-title">Эстетика и баланс</h3>
+                                <p class="resource-description">Оценивает визуальную привлекательность и гармонию. Помогает сделать дизайн простым, красивым и запоминающимся.</p>
+                                <!-- <a href="#pricing" class="resource-btn">Получить отчет</a> -->
                             </div>
                         </div>
                     </div>
@@ -584,7 +693,7 @@
                     </label>
                     <span class="toggle-label">
                         Ежегодно 
-                        <span class="discount-badge">Скидка 50%</span>
+                        <span class="discount-badge">12-й месяц бесплатно</span>
                     </span>
                 </div>
             </div>
@@ -599,8 +708,8 @@
                     
                     <div class="plan-pricing">
                         <div class="price-container">
-                            <span class="amount monthly-price">490</span>
-                            <span class="amount yearly-price" style="display: none;">245</span>
+                            <span class="amount monthly-price">1185</span>
+                            <span class="amount yearly-price" style="display: none;">1085</span>
                             <span class="currency">₽</span>
                             <span class="billing-period">
                                 <span class="monthly-period">/ мес.</span>
@@ -633,8 +742,8 @@
                     
                     <div class="plan-pricing">
                         <div class="price-container">
-                            <span class="amount monthly-price">1,990</span>
-                            <span class="amount yearly-price" style="display: none;">995</span>
+                            <span class="amount monthly-price">5250</span>
+                            <span class="amount yearly-price" style="display: none;">4810</span>
                             <span class="currency">₽</span>
                             <span class="billing-period">
                                 <span class="monthly-period">/ мес.</span>
@@ -673,8 +782,8 @@
                     
                     <div class="plan-pricing">
                         <div class="price-container">
-                            <span class="amount monthly-price">4,490</span>
-                            <span class="amount yearly-price" style="display: none;">2,245</span>
+                            <span class="amount monthly-price">13850</span>
+                            <span class="amount yearly-price" style="display: none;">12695</span>
                             <span class="currency">₽</span>
                             <span class="billing-period">
                                 <span class="monthly-period">/ мес.</span>
@@ -708,8 +817,8 @@
                     
                     <div class="plan-pricing">
                         <div class="price-container">
-                            <span class="amount monthly-price">9,990</span>
-                            <span class="amount yearly-price" style="display: none;">4,995</span>
+                            <span class="amount monthly-price">31570</span>
+                            <span class="amount yearly-price" style="display: none;">28939</span>
                             <span class="currency">₽</span>
                             <span class="billing-period">
                                 <span class="monthly-period">/ мес.</span>
@@ -737,8 +846,369 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="testimonials-header">
+                <h2 class="testimonials-title">Отзывы о технологии Eye-tracking</h2>
+                <p class="testimonials-subtitle">Узнайте, что говорят пользователи о работе с eye-tracking анализом</p>
+            </div>
+        </div>
+        
+        <div class="testimonials-content">
+            <!-- First row - moving left -->
+            <div class="testimonials-row row-left">
+                <div class="testimonials-track">
+                    <!-- Testimonial cards will be duplicated for seamless loop -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Eye-tracking технология потрясающая! Это простой инструмент, который выявит утечки внимания на вашем сайте и поможет сосредоточиться на том, что действительно важно для посетителей. Увеличение конверсии на 84%!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/TimAsh.jpg" alt="Тим Эш">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Тим Эш</h4>
+                                <p class="author-position">Спикер по цифровому маркетингу, CEO SiteTuners</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Эта технология позволяет анализировать, на каких областях страницы сосредоточено внимание пользователя. Это позволяет оптимизировать макет, выявить слабые места и улучшить производительность.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/neil-patel-200x200.jpg" alt="Нил Патель">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Нил Патель</h4>
+                                <p class="author-position">Топовый инфлюенсер в интернете</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Вам понравится инструмент, который может показать вашему дизайнеру, почему они могут стоить вам денег. Из 150+ инструментов оптимизации конверсии это один из трех, без которых я не могу жить.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/Bryan_Eisenberg2.jpg" alt="Брайан Айзенберг">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Брайан Айзенберг</h4>
+                                <p class="author-position">Эксперт по оптимизации, автор бестселлеров NY Times</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Что мы доказали: если вы следите за критическим путем вашего сайта и разрабатываете информацию так, чтобы ее можно было усвоить с первого взгляда, это принесет ценные результаты. Увеличение входящих звонков на 300%!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/BenSnyder.jpg" alt="Бен Снайдер">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Бен Снайдер</h4>
+                                <p class="author-position">Владелец Little Wing Marketing</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Мы используем eye-tracking как для генерации инсайтов, так и для творческого исполнения CRO. Это быстрый и простой способ понять, как посетители видят веб-страницы и проверить, что CTA выделяются.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/lynne-wright.jpg" alt="Линн Райт">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Линн Райт</h4>
+                                <p class="author-position">Менеджер по операциям и маркетингу, AWA digital</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">С помощью eye-tracking мы получаем гораздо более эффективный процесс проектирования. Мы получаем более профессиональный статус в процессе обсуждения с нашими клиентами.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/wolfgang-team-digital.jpg" alt="Вольфганг Юнг">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Вольфганг Юнг</h4>
+                                <p class="author-position">CEO team-digital.de</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Duplicates for seamless loop -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Eye-tracking технология потрясающая! Это простой инструмент, который выявит утечки внимания на вашем сайте и поможет сосредоточиться на том, что действительно важно для посетителей. Увеличение конверсии на 84%!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/TimAsh.jpg" alt="Тим Эш">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Тим Эш</h4>
+                                <p class="author-position">Спикер по цифровому маркетингу, CEO SiteTuners</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Эта технология позволяет анализировать, на каких областях страницы сосредоточено внимание пользователя. Это позволяет оптимизировать макет, выявить слабые места и улучшить производительность.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/neil-patel-200x200.jpg" alt="Нил Патель">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Нил Патель</h4>
+                                <p class="author-position">Топовый инфлюенсер в интернете</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Вам понравится инструмент, который может показать вашему дизайнеру, почему они могут стоить вам денег. Из 150+ инструментов оптимизации конверсии это один из трех, без которых я не могу жить.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/Bryan_Eisenberg2.jpg" alt="Брайан Айзенберг">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Брайан Айзенберг</h4>
+                                <p class="author-position">Эксперт по оптимизации, автор бестселлеров NY Times</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Что мы доказали: если вы следите за критическим путем вашего сайта и разрабатываете информацию так, чтобы ее можно было усвоить с первого взгляда, это принесет ценные результаты. Увеличение входящих звонков на 300%!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/BenSnyder.jpg" alt="Бен Снайдер">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Бен Снайдер</h4>
+                                <p class="author-position">Владелец Little Wing Marketing</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Мы используем eye-tracking как для генерации инсайтов, так и для творческого исполнения CRO. Это быстрый и простой способ понять, как посетители видят веб-страницы и проверить, что CTA выделяются.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/lynne-wright.jpg" alt="Линн Райт">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Линн Райт</h4>
+                                <p class="author-position">Менеджер по операциям и маркетингу, AWA digital</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">С помощью eye-tracking мы получаем гораздо более эффективный процесс проектирования. Мы получаем более профессиональный статус в процессе обсуждения с нашими клиентами.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/wolfgang-team-digital.jpg" alt="Вольфганг Юнг">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Вольфганг Юнг</h4>
+                                <p class="author-position">CEO team-digital.de</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Second row - moving right -->
+            <div class="testimonials-row row-right">
+                <div class="testimonials-track">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Предиктивный eye-tracking - мощный инструмент для понимания нейробиологической основы визуальной обработки. AVON Центральная Европа использовала эту технологию для оценки рекламы. Результаты превзошли все планы!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/CM-new-pic-BW.jpg" alt="Доктор Кристоф Морен">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Доктор Кристоф Морен</h4>
+                                <p class="author-position">CEO SalesBrain</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Я использую eye-tracking годами как часть моей системы предложений. Клиенты всегда очарованы, когда видят информацию о себе или своих конкурентах. Впечатляющая технология для демонстрации моим клиентам.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/ChuckBankoff-200x200.jpg" alt="Чак Банкофф">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Чак Банкофф</h4>
+                                <p class="author-position">Основатель Kreative Webworks</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Я абсолютно поражен, сколько информации нашел за такое короткое время. Всего за пять использований выявил серьезный недостаток в нашей контент-стратегии, о котором даже не подозревал!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/Christopher-Zook.jpg" alt="Кристофер Зук">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Кристофер Зук</h4>
+                                <p class="author-position">Специалист по маркетингу, WebpageFX</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Это отличный инструмент, который я использую для анализа дизайна целевых страниц. Вижу, что создает наибольший контраст, выделяется ли мой CTA, и быстро проверяю проблемные зоны.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/Tiffany-daSilva.jpg" alt="Тиффани даСильва">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Тиффани даСильва</h4>
+                                <p class="author-position">Директор по цифровой стратегии</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Eye-tracking позволяет нам анализировать вероятные пути взгляда при оценке производительности страницы. Чем больше мы понимаем, что видит пользователь и почему, тем лучшую стратегию мы можем создать.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/nicholasward.jpg" alt="Николас Уорд">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Николас Уорд</h4>
+                                <p class="author-position">Директор по продуктам, Range Online Media</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Мы используем eye-tracking для создания визуальных тепловых карт. Это отличный инструмент для прогнозирования, имеет ли ваш призыв к действию достаточную заметность на сайте.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/YossiHasson.jpg" alt="Йосси Хассон">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Йосси Хассон</h4>
+                                <p class="author-position">Управляющий директор, Synaq</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Duplicates for seamless loop -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Предиктивный eye-tracking - мощный инструмент для понимания нейробиологической основы визуальной обработки. AVON Центральная Европа использовала эту технологию для оценки рекламы. Результаты превзошли все планы!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/CM-new-pic-BW.jpg" alt="Доктор Кристоф Морен">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Доктор Кристоф Морен</h4>
+                                <p class="author-position">CEO SalesBrain</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Я использую eye-tracking годами как часть моей системы предложений. Клиенты всегда очарованы, когда видят информацию о себе или своих конкурентах. Впечатляющая технология для демонстрации моим клиентам.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/ChuckBankoff-200x200.jpg" alt="Чак Банкофф">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Чак Банкофф</h4>
+                                <p class="author-position">Основатель Kreative Webworks</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Я абсолютно поражен, сколько информации нашел за такое короткое время. Всего за пять использований выявил серьезный недостаток в нашей контент-стратегии, о котором даже не подозревал!</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/Christopher-Zook.jpg" alt="Кристофер Зук">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Кристофер Зук</h4>
+                                <p class="author-position">Специалист по маркетингу, WebpageFX</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Это отличный инструмент, который я использую для анализа дизайна целевых страниц. Вижу, что создает наибольший контраст, выделяется ли мой CTA, и быстро проверяю проблемные зоны.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/Tiffany-daSilva.jpg" alt="Тиффани даСильва">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Тиффани даСильва</h4>
+                                <p class="author-position">Директор по цифровой стратегии</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Eye-tracking позволяет нам анализировать вероятные пути взгляда при оценке производительности страницы. Чем больше мы понимаем, что видит пользователь и почему, тем лучшую стратегию мы можем создать.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/nicholasward.jpg" alt="Николас Уорд">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Николас Уорд</h4>
+                                <p class="author-position">Директор по продуктам, Range Online Media</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">Мы используем eye-tracking для создания визуальных тепловых карт. Это отличный инструмент для прогнозирования, имеет ли ваш призыв к действию достаточную заметность на сайте.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="assets/images/reviews/YossiHasson.jpg" alt="Йосси Хассон">
+                            </div>
+                            <div class="author-info">
+                                <h4 class="author-name">Йосси Хассон</h4>
+                                <p class="author-position">Управляющий директор, Synaq</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Download Checklist Section -->
-    <section class="download-checklist">
+    <section id="promocode" class="download-checklist">
         <div class="container">
             <div class="download-content">
                 <div class="download-left">
@@ -752,13 +1222,18 @@
                 </div>
 
                 <div class="download-right">
-                    <h2 class="download-title">Получите промокод на 3 бесплатных анализа</h2>
+                    <h2 class="download-title">Получите промокод на <span class="technology-eyetracking">
+                        бесплатный анализ
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="white"/>
+                        </svg>
+                    </span></h2>
                     <p class="download-description">
-                        Оставьте свой email и получите промокод на 3 бесплатных AI-анализа дизайна. Попробуйте сервис без риска!
+                        Оставьте свой email и получите промокод на бесплатный eye-tracking анализ дизайна. Попробуйте сервис без риска!
                     </p>
                     <form class="download-form">
                         <div class="download-form-row">
-                            <input type="email" class="download-input" placeholder="Введите ваш email" required>
+                            <input type="email" class="download-input" placeholder="Введите ваш email" autocomplete="email" required>
                             <button type="submit" class="btn btn-primary download-btn">
                                 Получить на почту
                             </button>
@@ -775,7 +1250,354 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <h2 class="faq-title">Вопросы <br>о нашем сервисе</h2>
+                <div class="faq-header-right">
+                    <p class="faq-subtitle">Ответы на часто задаваемые вопросы о нашем<br> сервисе eye-tracking анализа</p>
+                    <div class="faq-nav">
+                        <button class="faq-nav-btn" id="faq-prev">
+                            <img src="assets/images/right-arrow.svg" alt="Previous" width="16" height="16" style="transform: rotate(180deg);">
+                        </button>
+                        <button class="faq-nav-btn" id="faq-next">
+                            <img src="assets/images/right-arrow.svg" alt="Next" width="16" height="16">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-carousel" id="faq-carousel">
+                <div class="faq-card" tabindex="0" role="button" aria-expanded="false">
+                    <div class="faq-question">Что такое aitracking.app?</div>
+                    <div class="faq-answer">Это онлайн-сервис, который позволяет предсказать поведение пользователя с помощью технологии eye-tracking. Вы узнаете, что привлечет взгляд зрителя при просмотре вашей веб-страницы, рекламы, видео, вывески, упаковки и любых визуальных стимулов.</div>
+                </div>
+                <div class="faq-card" tabindex="0" role="button" aria-expanded="false">
+                    <div class="faq-question">Как использовать aitracking.app?</div>
+                    <div class="faq-answer">Загрузите макет, скриншот или фотографию. Нейронная сеть проанализирует ваши файлы и отправит отчёты на указанную почту. Затем вы можете скачать отчёты и внести правки для лучшего результата.</div>
+                </div>
+                <div class="faq-card" tabindex="0" role="button" aria-expanded="false">
+                    <div class="faq-question">Какие отчёты предоставляет сервис?</div>
+                    <div class="faq-answer">Сервис предоставляет четыре основных типа отчётов: тепловая карта, очередность просмотра, слепые зоны и баланс/эстетика. Каждый из них помогает по-своему анализировать внимание пользователей на вашем макете.</div>
+                </div>
+                <div class="faq-card" tabindex="0" role="button" aria-expanded="false">
+                    <div class="faq-question">Какие форматы изображений поддерживаются?</div>
+                    <div class="faq-answer">Поддерживаются форматы JPG, PNG и WEBP. Максимальный размер файла — 5 МБ.</div>
+                </div>
+                <div class="faq-card" tabindex="0" role="button" aria-expanded="false">
+                    <div class="faq-question">Как быстро я получу готовый отчёт?</div>
+                    <div class="faq-answer">Время подготовки отчёта обычно занимает несколько секунд, но может варьироваться в зависимости от текущей нагрузки. Если отчёт не пришёл в течение 30 минут, проверьте папку "Спам" или свяжитесь с поддержкой.</div>
+                </div>
+                <div class="faq-card" tabindex="0" role="button" aria-expanded="false">
+                    <div class="faq-question">Кто использует eye-tracking?</div>
+                    <div class="faq-answer">Сервис полезен для веб-дизайнеров, UX/UI-дизайнеров, маркетологов, предпринимателей и контент-мейкеров. Он помогает оптимизировать дизайн, улучшить пользовательский опыт и повысить эффективность визуальных материалов.</div>
+                </div>
+                <div class="faq-card" tabindex="0" role="button" aria-expanded="false">
+                    <div class="faq-question">Какой тариф выбрать? Есть ли бесплатный пробный период?</div>
+                    <div class="faq-answer">Доступен бесплатный пробный период на 30 дней. После этого вы можете выбрать подходящий тариф в разделе «Тарифы».</div>
+                </div>
+                <div class="faq-card" tabindex="0" role="button" aria-expanded="false">
+                    <div class="faq-question">Как оплатить тариф?</div>
+                    <div class="faq-answer">Оплата производится через ЮKassa. Поддерживаются банковские карты и СБП. После оплаты тариф активируется автоматически.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .faq-section {
+            padding: 60px 0;
+        }
+        .faq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .faq-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .faq-header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+        .faq-subtitle {
+            font-size: 16px;
+            color: #555;
+            margin: 0;
+            max-width: 500px;
+            text-align: right;
+        }
+        .faq-nav {
+            display: flex;
+            gap: 10px;
+        }
+                 .faq-nav-btn {
+             background: #7A7ADB;
+             border: none;
+             border-radius: 12px;
+             width: 48px;
+             height: 48px;
+             cursor: pointer;
+             transition: all 0.3s ease;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+         }
+         .faq-nav-btn img {
+             filter: brightness(0) invert(1); /* Make icons white */
+             transition: all 0.3s ease;
+         }
+         .faq-nav-btn:hover {
+             background: #6366f1;
+             transform: translateY(-1px);
+         }
+         #faq-prev:hover img {
+             transform: scale(1.1) rotate(180deg); /* Slightly larger on hover, maintain rotation for prev */
+         }
+         #faq-next:hover img {
+             transform: scale(1.1); /* For next button, no additional rotation */
+         }
+         .faq-nav-btn:active {
+             transform: translateY(0);
+         }
+                 .faq-carousel {
+             display: flex;
+             overflow-x: auto;
+             scroll-behavior: smooth;
+             padding-bottom: 20px;
+             scrollbar-width: none; /* Firefox */
+             -ms-overflow-style: none; /* Internet Explorer 10+ */
+             user-select: none; /* Prevent text selection during drag */
+             -webkit-user-select: none;
+             -moz-user-select: none;
+             -ms-user-select: none;
+         }
+         .faq-carousel::-webkit-scrollbar {
+             display: none; /* Safari and Chrome */
+         }
+         .faq-carousel:active {
+             cursor: grabbing !important;
+         }
+                 .faq-card {
+             flex: 0 0 auto;
+             width: 280px;
+             height: 300px;
+             margin-right: 16px;
+             padding: 24px;
+             background-color: #F9FAFB;
+             border-radius: 16px;
+             transition: width 0.3s ease, background-color 0.3s ease;
+             cursor: pointer;
+             display: flex;
+             flex-direction: column;
+             outline: none;
+             pointer-events: auto;
+         }
+         .faq-carousel.dragging .faq-card {
+             pointer-events: none; /* Disable card interactions during drag */
+         }
+                 .faq-card:focus, .faq-card:hover {
+             width: 360px;
+             background-color: #7A7ADB;
+         }
+        .faq-question {
+            color: #333;
+            font-size: 20px;
+            line-height: 1.4;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .faq-card:focus .faq-question, .faq-card:hover .faq-question {
+            color: #FFF;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #FFF;
+            transition: max-height 0.3s ease;
+            margin-top: auto;
+        }
+        .faq-card:focus .faq-answer, .faq-card:hover .faq-answer {
+            max-height: 200px;
+        }
+        
+        @media (max-width: 768px) {
+            .faq-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .faq-title {
+                font-size: 36px;
+            }
+            .faq-header-right {
+                align-items: flex-start;
+                width: 100%;
+            }
+            .faq-subtitle {
+                text-align: left;
+                max-width: 100%;
+            }
+        }
+    </style>
+
+    <script>
+        // FAQ Carousel Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqCarousel = document.getElementById('faq-carousel');
+            const faqPrev = document.getElementById('faq-prev');
+            const faqNext = document.getElementById('faq-next');
+            const faqCards = document.querySelectorAll('.faq-card');
+
+            if (faqCarousel && faqPrev && faqNext) {
+                faqPrev.addEventListener('click', () => {
+                    faqCarousel.scrollBy({ left: -300, behavior: 'smooth' });
+                });
+
+                faqNext.addEventListener('click', () => {
+                    faqCarousel.scrollBy({ left: 300, behavior: 'smooth' });
+                });
+
+                                // AUTO-SCROLL ON HOVER (COMMENTED OUT FOR TESTING)
+                // faqCards.forEach((card, index) => {
+                //     card.addEventListener('mouseenter', () => {
+                //         const currentScrollLeft = faqCarousel.scrollLeft;
+                //         const carouselWidth = faqCarousel.offsetWidth;
+                //         const cardPosition = card.offsetLeft;
+                //         const cardWidth = 280;
+                //         const expandedWidth = 360;
+                //         
+                //         // Check if this is the first visible card
+                //         const isFirstVisible = cardPosition >= currentScrollLeft && cardPosition <= currentScrollLeft + 50;
+                //         
+                //         // Check if this is the last visible card (partially or fully visible)
+                //         const cardRightEdge = cardPosition + cardWidth;
+                //         const viewportRightEdge = currentScrollLeft + carouselWidth;
+                //         const isLastVisible = cardRightEdge >= viewportRightEdge - 100; // Allow some tolerance
+                //         
+                //         if (isLastVisible) {
+                //             // This is the last visible card - calculate position to show it fully when expanded
+                //             const targetScrollLeft = (cardPosition + expandedWidth) - carouselWidth;
+                //             
+                //             faqCarousel.scrollTo({ 
+                //                 left: Math.max(0, targetScrollLeft),
+                //                 behavior: 'smooth' 
+                //             });
+                //         } else if (isFirstVisible && currentScrollLeft > 0) {
+                //             // This is the first visible card and we're not at the beginning
+                //             faqCarousel.scrollTo({ 
+                //                 left: 0,
+                //                 behavior: 'smooth' 
+                //             });
+                //         }
+                //     });
+                // });
+
+                // DRAG-AND-SCROLL FUNCTIONALITY
+                let isDragging = false;
+                let startX;
+                let scrollLeft;
+
+                faqCarousel.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    faqCarousel.classList.add('dragging');
+                    faqCarousel.style.cursor = 'grabbing';
+                    startX = e.pageX - faqCarousel.offsetLeft;
+                    scrollLeft = faqCarousel.scrollLeft;
+                    faqCarousel.style.scrollBehavior = 'auto'; // Disable smooth scroll during drag
+                });
+
+                faqCarousel.addEventListener('mouseleave', () => {
+                    isDragging = false;
+                    faqCarousel.classList.remove('dragging');
+                    faqCarousel.style.cursor = 'grab';
+                    faqCarousel.style.scrollBehavior = 'smooth'; // Re-enable smooth scroll
+                });
+
+                faqCarousel.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    faqCarousel.classList.remove('dragging');
+                    faqCarousel.style.cursor = 'grab';
+                    faqCarousel.style.scrollBehavior = 'smooth'; // Re-enable smooth scroll
+                });
+
+                faqCarousel.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const x = e.pageX - faqCarousel.offsetLeft;
+                    const walk = (x - startX) * 2; // Scroll speed multiplier
+                    faqCarousel.scrollLeft = scrollLeft - walk;
+                });
+
+                // Global mouseup to handle drag end even when mouse leaves carousel
+                document.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        faqCarousel.classList.remove('dragging');
+                        faqCarousel.style.cursor = 'grab';
+                        faqCarousel.style.scrollBehavior = 'smooth';
+                    }
+                });
+
+                // Set initial cursor style
+                faqCarousel.style.cursor = 'grab';
+            }
+        });
+    </script>
+
     
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Left section - Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="assets/images/logo.svg" alt="Aitracking" height="42">
+                        <div class="footer-auth">
+                            <a href="https://platform.aitracking.app/signup" class="btn btn-ghost">Регистрация</a>
+                            <a href="https://platform.aitracking.app/login" class="btn btn-primary">Вход</a>
+                        </div>
+                    </div>
+                    <p class="footer-brand-description">
+                        Aitracking - это AI-платформа для анализа пользовательского внимания<br> на веб-сайтах и мобильных приложениях.
+                    </p>
+                    
+                    <!-- Horizontal navigation menu -->
+                    <nav class="footer-nav">
+                        <a href="#technology" class="footer-nav-link">О технологии</a>
+                        <a href="#reports" class="footer-nav-link">Отчеты</a>
+                        <a href="#pricing" class="footer-nav-link">Тарифы</a>
+                        <a href="#testimonials" class="footer-nav-link">Отзывы</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Footer bottom -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">© Aitracking. Все права защищены.</p>
+                <div class="footer-social-icons">
+                    <a href="mailto:support@aitracking.app" class="footer-icon-link" aria-label="Email">
+                        <img src="assets/images/email.svg" alt="Email" width="20" height="20">
+                    </a>
+                    <a href="https://t.me/aitrackingappbot" class="footer-icon-link" target="_blank" aria-label="Telegram">
+                        <img src="assets/images/telegram.svg" alt="Telegram" width="20" height="20">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-overlay" id="lightbox-overlay"></div>
@@ -786,13 +1608,562 @@
     </div>
 
     <!-- JavaScript -->
-    <!-- EmailJS -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        // Initialize EmailJS with your public key
-        emailjs.init("GqcshomnFvqp5Gg8F");
-    </script>
     
+    
+    <script src="assets/js/hero-carousel-optimized.js"></script>
     <script src="assets/js/main.js"></script>
+    
+    <!-- Navigation scroll highlighting -->
+    <script>
+        // Highlight active navigation item based on scroll position
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href').substring(1);
+                if (href === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll to testimonials on users preview click
+        document.addEventListener('DOMContentLoaded', function() {
+            const usersPreview = document.querySelector('.users-preview');
+            if (usersPreview) {
+                usersPreview.addEventListener('click', function() {
+                    const testimonialsSection = document.getElementById('testimonials');
+                    if (testimonialsSection) {
+                        testimonialsSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            }
+
+            // Scroll to next section on "Learn more" button click
+            const learnMoreBtn = document.getElementById('learn-more-btn');
+            if (learnMoreBtn) {
+                learnMoreBtn.addEventListener('click', function() {
+                    const howItWorksSection = document.querySelector('.how-it-works');
+                    if (howItWorksSection) {
+                        howItWorksSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            }
+
+            // Scroll to promocode section on "Try for free" button clicks
+            const tryFreeButtons = document.querySelectorAll('.tab-cta-btn');
+            tryFreeButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const promocodeSection = document.getElementById('promocode');
+                    if (promocodeSection) {
+                        promocodeSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Demo Request Modal -->
+    <div id="demo-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Заказать демонстрацию</h2>
+                <button class="modal-close" id="modal-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p class="modal-description">
+                    Заполните форму ниже, и мы свяжемся с вами для назначения персональной демонстрации
+                </p>
+                
+                <form id="demo-form" class="demo-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="demo-name" class="form-label">Имя *</label>
+                            <input type="text" id="demo-name" name="name" class="form-input" required placeholder="Ваше имя">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="demo-email" class="form-label">Email *</label>
+                            <input type="email" id="demo-email" name="email" class="form-input" required placeholder="your@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="demo-phone" class="form-label">Телефон *</label>
+                            <input type="tel" id="demo-phone" name="phone" class="form-input" required placeholder="+7 (999) 123-45-67">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="demo-date" class="form-label">Предпочтительная дата</label>
+                            <input type="date" id="demo-date" name="date" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="demo-time" class="form-label">Предпочтительное время</label>
+                            <select id="demo-time" name="time" class="form-input">
+                                <option value="">Выберите время</option>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option>
+                                <option value="18:00">18:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label for="demo-comment" class="form-label">Комментарий</label>
+                        <textarea id="demo-comment" name="comment" class="form-textarea" rows="4" placeholder="Расскажите о ваших задачах и что вас интересует в нашем сервисе"></textarea>
+                    </div>
+                    
+                    <div class="form-group form-group-full">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="demo-consent" name="consent" required>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Я согласен на обработку персональных данных в соответствии с <a href="#" class="privacy-link">политикой конфиденциальности</a></span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="btn-icon">
+                                <path d="M8 2V5M16 2V5M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15.6947 13.7002H15.7037M11.9955 13.7002H12.0045M8.29431 13.7002H8.30329" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Забронировать время
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Demo Request Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            transform: translateY(30px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 32px 0 32px;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: #f3f4f6;
+            border: none;
+            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #6b7280;
+        }
+
+        .modal-close:hover {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .modal-body {
+            padding: 0 32px 32px 32px;
+        }
+
+        .modal-description {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0 0 32px 0;
+        }
+
+        .demo-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin: 0;
+        }
+
+        .form-input,
+        .form-textarea {
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: white;
+            color: #1a1a1a;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #7A7ADB;
+            box-shadow: 0 0 0 3px rgba(122, 122, 219, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.2s ease;
+            margin-top: 2px;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark {
+            background: #7A7ADB;
+            border-color: #7A7ADB;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 4px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-text {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .privacy-link {
+            color: #7A7ADB;
+            text-decoration: none;
+        }
+
+        .privacy-link:hover {
+            text-decoration: underline;
+        }
+
+        .form-actions {
+            margin-top: 8px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(122, 122, 219, 0.3);
+        }
+
+        .btn-icon {
+            flex-shrink: 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .modal-container {
+                width: 95%;
+                margin: 20px;
+                border-radius: 20px;
+            }
+
+            .modal-header {
+                padding: 24px 24px 0 24px;
+            }
+
+            .modal-title {
+                font-size: 24px;
+            }
+
+            .modal-body {
+                padding: 0 24px 24px 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .demo-form {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-container {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                max-height: 100vh;
+            }
+        }
+    </style>
+
+    <script>
+        // Demo Request Modal JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoBtn = document.getElementById('demo-request-btn');
+            const modal = document.getElementById('demo-modal');
+            const closeBtn = document.getElementById('modal-close');
+            const form = document.getElementById('demo-form');
+
+            // Open modal
+            if (demoBtn) {
+                demoBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            // Close modal
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeModal);
+            }
+
+            // Close on overlay click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+            // Phone number formatting
+            const phoneInput = document.getElementById('demo-phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.startsWith('8')) value = '7' + value.slice(1);
+                    if (value.startsWith('7')) {
+                        value = value.slice(0, 11);
+                        if (value.length >= 1) value = '+7' + (value.length > 1 ? ' (' + value.slice(1, 4) : '');
+                        if (value.length >= 7) value = value.slice(0, 7) + ') ' + value.slice(7);
+                        if (value.length >= 13) value = value.slice(0, 13) + '-' + value.slice(13);
+                        if (value.length >= 16) value = value.slice(0, 16) + '-' + value.slice(16, 18);
+                    }
+                    e.target.value = value;
+                });
+            }
+
+            // Set minimum date to today
+            const dateInput = document.getElementById('demo-date');
+            if (dateInput) {
+                const today = new Date();
+                const minDate = today.toISOString().split('T')[0];
+                dateInput.min = minDate;
+            }
+
+            // Form submission
+            if (form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData);
+                    
+                    // Basic validation
+                    if (!data.name || !data.email || !data.phone || !data.consent) {
+                        alert('Пожалуйста, заполните все обязательные поля и дайте согласие на обработку данных');
+                        return;
+                    }
+
+                    // Show loading state
+                    const submitBtn = form.querySelector('.btn-submit');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<div style="display: flex; align-items: center; gap: 8px;"><div style="width: 20px; height: 20px; border: 2px solid #fff; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>Отправка...</div>';
+                    submitBtn.disabled = true;
+
+                    try {
+                        // Send data to server
+                        const response = await fetch('send-demo-request.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                name: data.name,
+                                email: data.email,
+                                phone: data.phone,
+                                date: data.date,
+                                time: data.time,
+                                comment: data.comment
+                            })
+                        });
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.');
+                            closeModal();
+                            form.reset();
+                        } else {
+                            throw new Error(result.error || 'Произошла ошибка при отправке');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Произошла ошибка при отправке заявки. Попробуйте позже или свяжитесь с нами напрямую.');
+                    } finally {
+                        // Restore button state
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        });
+
+        // Add spinning animation for loading state
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
