@@ -57,7 +57,7 @@ $request_date = date('j F Y г. в H:i');
 $html_body = "
 <div style=\"font-family: system-ui, sans-serif, Arial; font-size: 14px; max-width: 600px; margin: 0 auto;\">
   <div style=\"text-align: center; padding: 20px 0; border-bottom: 1px solid #eaeaea;\">
-    <img src=\"https://aitracking.app/assets/images/logo.svg\" alt=\"AI Tracking\" style=\"height: 42px; margin-bottom: 10px;\">
+    <img src=\"https://aitracking.app/assets/images/logo.png\" alt=\"AI Tracking\" style=\"height: 42px; margin-bottom: 10px;\">
     <p style=\"color: #666; margin: 5px 0 0 0;\">Новая заявка на демонстрацию</p>
   </div>
   
